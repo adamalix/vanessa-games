@@ -15,7 +15,6 @@ type RainDrop = {
 
 export default function App() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const rainSoundRef = useRef<HTMLAudioElement>(null);
 
   useEffect(() => {
     const canvas = canvasRef.current!;
@@ -126,13 +125,11 @@ export default function App() {
     }
 
     function updateRain() {
-      let watering = false;
       plants.forEach((plant) => {
         if (
           !plant.grown &&
           Math.abs(cloud.x - (plant.x + plantWidth / 2)) < plantWidth / 2
         ) {
-          watering = true;
           rainDrops.push({
             x: cloud.x + (Math.random() * 60 - 30),
             y: cloud.y + 40,
@@ -141,17 +138,6 @@ export default function App() {
       });
 
       rainDrops = rainDrops.filter((drop) => drop.y < canvas.height);
-
-      /*
-      if (watering) {
-        const rainSound = rainSoundRef.current;
-        if (rainSound?.paused) {
-          rainSound.play();
-        }
-      } else {
-        rainSoundRef.current?.pause();
-      }
-      */
     }
 
     function update() {
@@ -250,12 +236,6 @@ export default function App() {
   return (
     <>
       <canvas ref={canvasRef} width={600} height={800} />
-      {/* <audio ref={rainSoundRef} loop>
-        <source
-          src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
-          type="audio/mpeg"
-        />
-      </audio> */}
     </>
   );
 }

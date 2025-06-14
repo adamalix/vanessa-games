@@ -24,3 +24,17 @@ pnpm --filter clausy-the-cloud dev
 ```
 
 The source for the game lives in `apps/clausy-the-cloud`.
+
+## Linting
+
+To check code quality and catch errors, run:
+
+```bash
+pnpm lint
+```
+
+To automatically fix lint issues, run:
+
+```bash
+pnpm lint:fix
+```
