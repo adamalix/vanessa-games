@@ -1,0 +1,37 @@
+name: Lint & Format
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  checks:
+    name: Lint & Format checks
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        name: Install pnpm
+        with:
+          version: latest
+          run_install: false
+
+      - name: Setup Node.js & cache pnpm deps
+        uses: actions/setup-node@v4
+        with:
+          node-version: 'lts/*'
+          cache: 'pnpm'
+          cache-dependency-path: pnpm-lock.yaml
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Check code formatting
+        run: pnpm format:check
+
+      - name: Run ESLint
+        run: pnpm lint
