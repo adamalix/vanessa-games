@@ -1,0 +1,17 @@
+# Node.js dependencies
+node_modules
+**/node_modules
+
+# Build output
+dist
+build
+
+# Coverage directory
+coverage
+
+# System files
+.DS_Store
+.vscode
+
+# Logs
+*.log

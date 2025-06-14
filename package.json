@@ -5,9 +5,14 @@
   "workspaces": [
     "apps/*"
   ],
+  "scripts": {
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
   "devDependencies": {
     "@types/react": "^19.1.8",
     "@types/react-dom": "^19.1.6",
+    "prettier": "^3.5.3",
     "typescript": "^5.8.3"
   }
 }
