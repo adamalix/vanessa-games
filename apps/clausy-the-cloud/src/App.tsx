@@ -125,6 +125,10 @@ export default function App() {
     }
 
     function updateRain() {
+      // Move each raindrop down
+      rainDrops.forEach((drop) => {
+        drop.y += 6; // Adjust speed as needed
+      });
       plants.forEach((plant) => {
         if (
           !plant.grown &&
