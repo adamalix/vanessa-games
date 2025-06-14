@@ -38,3 +38,15 @@ To automatically fix lint issues, run:
 ```bash
 pnpm lint:fix
 ```
+
+## Building Clausy the Cloud for Production Hosting
+
+To build the Clausy the Cloud app for deployment:
+
+```bash
+pnpm --filter clausy-the-cloud build
+```
+
+The production-ready files will be generated in `apps/clausy-the-cloud/dist/`.
+
+You can then deploy the contents of the `dist` folder to any static hosting provider (e.g., Vercel, Netlify, GitHub Pages, Firebase Hosting, etc.).

@@ -22,7 +22,9 @@ export default [
       'node_modules',
       '**/node_modules',
       'dist',
+      '**/dist', // Ignore all dist folders recursively
       'build',
+      '**/build',
       'coverage',
       '.DS_Store',
       '.vscode',
