@@ -1,5 +1,11 @@
 body {
   margin: 0;
-  font-family: sans-serif;
-  padding: 1rem;
+  overflow: hidden;
+  background: #add8e6;
+}
+
+canvas {
+  display: block;
+  margin: 0 auto;
+  background: #87ceeb;
 }
