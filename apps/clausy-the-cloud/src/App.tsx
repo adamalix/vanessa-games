@@ -298,6 +298,7 @@ export default function App() {
       canvas.removeEventListener('touchend', handleTouchEnd);
       cancelAnimationFrame(requestId);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- plants is a ref, safe to omit
   }, []); // Only run once on mount
 
   // Overlay touch buttons
