@@ -2,6 +2,22 @@
 
 Games for Vanessa!
 
+## ⚠️ Vite Config for GitHub Pages
+
+When deploying a Vite app to GitHub Pages from this monorepo, set the `base` option in your `vite.config.ts` to the correct subfolder path:
+
+```
+base: '/vanessa-games/<app-folder>/',
+```
+
+For example, for the Clausy the Cloud app:
+
+```
+base: '/vanessa-games/clausy-the-cloud/'
+```
+
+This ensures assets load correctly at `https://<user>.github.io/vanessa-games/<app-folder>/`.
+
 ## Getting Started
 
 This repository is set up as a pnpm workspace to manage one or more web apps.
