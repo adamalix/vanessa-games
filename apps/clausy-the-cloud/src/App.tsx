@@ -349,7 +349,7 @@ export default function App() {
         style={{
           position: 'absolute',
           left: 10,
-          bottom: 30,
+          bottom: 'calc(30px + env(safe-area-inset-bottom, 0px))',
           width: 60,
           height: 60,
           borderRadius: '50%',
@@ -370,7 +370,7 @@ export default function App() {
         style={{
           position: 'absolute',
           right: 10,
-          bottom: 30,
+          bottom: 'calc(30px + env(safe-area-inset-bottom, 0px))',
           width: 60,
           height: 60,
           borderRadius: '50%',
