@@ -55,6 +55,38 @@ export default function App() {
     });
   }
 
+  // Hold-to-move helpers
+  const leftIntervalRef = useRef<number | null>(null);
+  const rightIntervalRef = useRef<number | null>(null);
+
+  function startMovingLeft() {
+    moveCloudLeft();
+    if (leftIntervalRef.current === null) {
+      leftIntervalRef.current = window.setInterval(moveCloudLeft, 100);
+    }
+  }
+
+  function stopMovingLeft() {
+    if (leftIntervalRef.current !== null) {
+      clearInterval(leftIntervalRef.current);
+      leftIntervalRef.current = null;
+    }
+  }
+
+  function startMovingRight() {
+    moveCloudRight();
+    if (rightIntervalRef.current === null) {
+      rightIntervalRef.current = window.setInterval(moveCloudRight, 100);
+    }
+  }
+
+  function stopMovingRight() {
+    if (rightIntervalRef.current !== null) {
+      clearInterval(rightIntervalRef.current);
+      rightIntervalRef.current = null;
+    }
+  }
+
   // Helper must be defined before plantsRef
   function getRandomRainbowColor(): string {
     const colors = [
@@ -296,6 +328,8 @@ export default function App() {
       window.removeEventListener('keydown', handleKeyDown);
       canvas.removeEventListener('touchstart', handleTouchStart);
       canvas.removeEventListener('touchend', handleTouchEnd);
+      stopMovingLeft();
+      stopMovingRight();
       cancelAnimationFrame(requestId);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps -- plants is a ref, safe to omit
@@ -325,8 +359,11 @@ export default function App() {
           fontSize: 32,
           zIndex: 2,
         }}
-        onTouchStart={moveCloudLeft}
-        onMouseDown={moveCloudLeft}
+        onTouchStart={startMovingLeft}
+        onTouchEnd={stopMovingLeft}
+        onMouseDown={startMovingLeft}
+        onMouseUp={stopMovingLeft}
+        onMouseLeave={stopMovingLeft}
       >
         ◀️
       </button>
@@ -343,8 +380,11 @@ export default function App() {
           fontSize: 32,
           zIndex: 2,
         }}
-        onTouchStart={moveCloudRight}
-        onMouseDown={moveCloudRight}
+        onTouchStart={startMovingRight}
+        onTouchEnd={stopMovingRight}
+        onMouseDown={startMovingRight}
+        onMouseUp={stopMovingRight}
+        onMouseLeave={stopMovingRight}
       >
         ▶️
       </button>
