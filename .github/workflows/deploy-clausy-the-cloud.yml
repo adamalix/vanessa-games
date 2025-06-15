@@ -1,0 +1,61 @@
+name: Deploy Clausy the Cloud to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'apps/clausy-the-cloud/**'
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: pnpm/action-setup@v4
+        name: Install pnpm
+        with:
+          version: latest
+          run_install: false
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 'lts/*'
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build Clausy the Cloud
+        run: pnpm --filter clausy-the-cloud run build
+
+      - name: Prepare deployment folder
+        run: |
+          mkdir -p site/clausy-the-cloud
+          cp -r apps/clausy-the-cloud/dist/* site/clausy-the-cloud/
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
