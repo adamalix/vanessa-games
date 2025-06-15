@@ -27,13 +27,10 @@ export default function App() {
   // Add state for cloud position to allow touch controls to update UI
   const [cloudX, setCloudX] = useState<number | null>(null);
 
-  // Demo: Add a small change for deployment test
-  // eslint-disable-next-line
-  const deploymentTest = 'Deployed: ' + new Date().toLocaleDateString();
-
   // MoveCloud functions must be defined here so they are in scope for both JSX and useEffect
   function moveCloudLeft() {
     setCloudX((prev) => {
+      console.log('Moving cloud left', prev);
       const canvas = canvasRef.current;
       if (!canvas) return prev;
       const cloudWidth = 100;
