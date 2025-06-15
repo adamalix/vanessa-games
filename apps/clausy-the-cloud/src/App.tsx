@@ -337,15 +337,13 @@ export default function App() {
 
   // Overlay touch buttons
   return (
-    <div
-      style={{
-        position: 'relative',
-        width: 600,
-        height: 800,
-        margin: '0 auto',
-      }}
-    >
-      <canvas ref={canvasRef} width={600} height={800} />
+    <div id="game-container">
+      <canvas
+        ref={canvasRef}
+        width={600}
+        height={800}
+        style={{ width: '100%', height: '100%' }}
+      />
       <button
         aria-label="Move Left"
         style={{
