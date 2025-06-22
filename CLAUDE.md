@@ -21,23 +21,49 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Architecture Overview
 
-This is a **pnpm workspace monorepo** for browser-based games:
+This is a **hybrid monorepo** supporting both web and iOS apps:
+
+### Web Apps (pnpm workspace)
 
 - **Root**: Shared tooling (ESLint, Prettier, TypeScript configs)
 - **Individual games**: Located in `apps/<game-name>/` folders
 - **Tech stack**: React + TypeScript + Vite for each game
 - **Canvas-based games**: Games use HTML5 Canvas with React for UI overlay
 
+### iOS Apps (Tuist workspace)
+
+- **Workspace**: `VanessaGames/VanessaGames.xcworkspace`
+- **Games**: Individual iOS app targets (e.g., `ClausyTheCloud`)
+- **Shared frameworks**: `SharedGameEngine`, `SharedAssets`
+- **Tech stack**: SwiftUI + Swift 6.1 with strict concurrency
+- **Platform support**: iOS 18.0+ with iPad optimization
+
 ## Current Games
+
+### Web Versions
 
 - **Clausy the Cloud** (`apps/clausy-the-cloud/`): A 2D canvas game where players control a cloud to water plants. Features touch controls, keyboard input, and canvas animation with React state management.
 
+### iOS Versions
+
+- **Clausy the Cloud** (`VanessaGames/Games/ClausyTheCloud/`): Native iOS/iPadOS app built with SwiftUI, using shared game engine and assets.
+
 ## Key Patterns
+
+### Web Development
 
 - Each game is a self-contained Vite + React + TypeScript app
 - Canvas games use `useRef` for canvas access and `useEffect` for game loops
 - Touch and keyboard controls are implemented for mobile compatibility
 - Games use absolute positioning for UI overlays on canvas elements
+
+### iOS Development
+
+- Each game is a separate iOS app target within the Tuist workspace
+- Shared functionality is extracted into reusable frameworks
+- SwiftUI for modern declarative UI development
+- Swift 6.1 with strict concurrency for safe async/await patterns
+- Support for both iPhone and iPad with adaptive layouts
 
 ## GitHub Pages Deployment
 
@@ -70,9 +96,48 @@ base: '/vanessa-games/<app-folder>/';
   - Runs Prettier on JS/TS/JSON/CSS/MD files
   - Validates YAML, TOML, and JSON syntax
 
+## iOS Development Workflow
+
+### Getting Started
+
+1. Run `./scripts/setup.sh` to install all tools
+2. Navigate to `VanessaGames/` directory
+3. Generate Xcode workspace: `mise exec -- tuist generate`
+4. Open `VanessaGames.xcworkspace` in Xcode
+5. Select "ClausyTheCloud" scheme to build and run
+
+### Adding New Games
+
+1. Add new target to `VanessaGames/Project.swift`
+2. Create directory structure: `Games/<GameName>/Sources/`
+3. Add scheme configuration for build/test actions
+4. Regenerate workspace: `mise exec -- tuist generate`
+
+### Project Structure
+
+```
+VanessaGames/
+├── Project.swift           # Tuist project configuration
+├── Tuist.swift            # Tuist settings
+├── Games/
+│   └── ClausyTheCloud/    # Individual game sources
+├── Shared/
+│   ├── GameEngine/        # Common game logic framework
+│   └── Assets/            # Shared resources framework
+└── VanessaGames.xcworkspace  # Generated Xcode workspace
+```
+
 ## Linting Configuration
+
+### Web Projects
 
 - Uses flat config in `eslint.config.js` (ESLint 9+)
 - Ignores patterns defined in the `ignores` property
 - `.eslintignore` file is not supported
 - Includes React, TypeScript, and Prettier integration
+
+### iOS Projects
+
+- SwiftLint configuration with strict rules
+- Automated via Xcode build phases
+- Periphery for unused code detection
