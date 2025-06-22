@@ -12,12 +12,24 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Development Commands
 
+### Web Apps
+
 - **Start development server for specific app**: `pnpm --filter <app-name> dev`
   - Example: `pnpm --filter clausy-the-cloud dev`
 - **Lint code**: `pnpm lint` (check) or `pnpm lint:fix` (auto-fix)
 - **Format code**: `pnpm format` (fix) or `pnpm format:check` (check)
 - **Build all games**: `pnpm build` (builds all apps in parallel)
 - **Build specific app**: `pnpm --filter <app-name> build`
+
+### iOS Apps
+
+- **Build iOS apps**: `mise exec -- tuist build` (from VanessaGames/ directory)
+  - Or from repository root: `mise exec -- tuist build --path VanessaGames`
+  - Build specific target: `mise exec -- tuist build --path VanessaGames ClausyTheCloud`
+- **Test iOS apps**: `mise exec -- tuist test` (from VanessaGames/ directory)
+  - Or from repository root: `mise exec -- tuist test --path VanessaGames`
+  - Test specific target: `mise exec -- tuist test --path VanessaGames ClausyTheCloud`
+- **Generate Xcode workspace**: `mise exec -- tuist generate --path VanessaGames` (from repository root)
 
 ## Architecture Overview
 
@@ -36,7 +48,9 @@ This is a **hybrid monorepo** supporting both web and iOS apps:
 - **Games**: Individual iOS app targets (e.g., `ClausyTheCloud`)
 - **Shared frameworks**: `SharedGameEngine`, `SharedAssets`
 - **Tech stack**: SwiftUI + Swift 6.1 with strict concurrency
-- **Platform support**: iOS 18.0+ with iPad optimization
+- **Data persistence**: Swift Data for local storage and data modeling
+- **Testing**: Swift Testing framework (not XCTest)
+- **Platform support**: iOS 18.0+ (minimum deployment target) with iPad optimization
 
 ## Current Games
 
@@ -63,6 +77,8 @@ This is a **hybrid monorepo** supporting both web and iOS apps:
 - Shared functionality is extracted into reusable frameworks
 - SwiftUI for modern declarative UI development
 - Swift 6.1 with strict concurrency for safe async/await patterns
+- Swift Data for all data persistence and modeling needs
+- Target iOS 18.0+ for all apps and frameworks
 - Support for both iPhone and iPad with adaptive layouts
 
 ## GitHub Pages Deployment

@@ -1,15 +1,15 @@
-import XCTest
+import Testing
 @testable import SharedGameEngine
 
 @MainActor
-final class GameEngineTests: XCTestCase {
+struct GameEngineTests {
 
-    func testGameEngineInitialization() {
+    @Test func gameEngineInitialization() {
         let engine = GameEngine()
-        XCTAssertNotNil(engine)
+        #expect(engine != nil)
     }
 
-    func testGameEngineStartStop() {
+    @Test func gameEngineStartStop() {
         let engine = GameEngine()
 
         // These should not crash

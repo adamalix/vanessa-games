@@ -1,12 +1,12 @@
-import XCTest
+import Testing
 @testable import SharedGameEngine
 
 @MainActor
-final class ClausyTheCloudTests: XCTestCase {
+struct ClausyTheCloudTests {
 
-    func testGameEngineIntegration() {
+    @Test func gameEngineIntegration() {
         let engine = GameEngine()
-        XCTAssertNotNil(engine)
+        #expect(engine != nil)
 
         engine.start()
         engine.stop()
