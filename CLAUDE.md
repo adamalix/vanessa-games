@@ -42,9 +42,30 @@ This is a **pnpm workspace monorepo** for browser-based games:
 ## GitHub Pages Deployment
 
 When deploying to GitHub Pages, set the `base` option in `vite.config.ts`:
+
 ```typescript
-base: '/vanessa-games/<app-folder>/'
+base: '/vanessa-games/<app-folder>/';
 ```
+
+## Tool Management
+
+**Use `mise`** for managing development tool versions:
+
+- Install tools: `mise install` (installs from `.mise.toml`)
+- Setup pre-commit hooks: `pre-commit install` (after mise install)
+
+### iOS Development Tools
+
+- **SwiftLint** 0.59.1 - Swift code linting
+- **Tuist** 4.54.3 - Xcode project generation
+- **Periphery** 3.1.0 - unused code detection
+
+### Code Quality Tools
+
+- **pre-commit** - Git hooks for code formatting and linting
+  - Automatically fixes trailing whitespace and missing newlines
+  - Runs Prettier on JS/TS/JSON/CSS/MD files
+  - Validates YAML, TOML, and JSON syntax
 
 ## Linting Configuration
 

@@ -3,3 +3,6 @@
 swiftlint = "0.59.1"
 tuist = "4.54.3"
 periphery = "3.1.0"
+
+# Code Quality Tools
+pre-commit = "latest"
