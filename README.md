@@ -55,14 +55,14 @@ To automatically fix lint issues, run:
 pnpm lint:fix
 ```
 
-## Building Clausy the Cloud for Production Hosting
+## Building Games for Production Hosting
 
-To build the Clausy the Cloud app for deployment:
+To build all games for deployment:
 
 ```bash
-pnpm --filter clausy-the-cloud build
+pnpm build
 ```
 
-The production-ready files will be generated in `apps/clausy-the-cloud/dist/`.
+Each game will output production files in its `apps/<game>/dist/` folder.
 
-You can then deploy the contents of the `dist` folder to any static hosting provider (e.g., Vercel, Netlify, GitHub Pages, Firebase Hosting, etc.).
+You can deploy the contents of the `dist` folders to any static hosting provider (e.g., Vercel, Netlify, GitHub Pages, Firebase Hosting, etc.).
