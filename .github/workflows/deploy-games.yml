@@ -1,11 +1,11 @@
-name: Deploy Clausy the Cloud to GitHub Pages
+name: Deploy Games to GitHub Pages
 
 on:
   push:
     branches:
       - main
     paths:
-      - 'apps/clausy-the-cloud/**'
+      - 'apps/**'
 
 permissions:
   contents: read
@@ -36,13 +36,16 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Build Clausy the Cloud
-        run: pnpm --filter clausy-the-cloud run build
+      - name: Build all games
+        run: pnpm run build
 
       - name: Prepare deployment folder
         run: |
-          mkdir -p site/clausy-the-cloud
-          cp -r apps/clausy-the-cloud/dist/* site/clausy-the-cloud/
+          for dir in apps/*; do
+            app=$(basename "$dir")
+            mkdir -p "site/$app"
+            cp -r "$dir"/dist/* "site/$app/"
+          done
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
