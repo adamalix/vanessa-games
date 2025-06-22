@@ -1,9 +1,11 @@
-name: Lint & Format
+name: Lint & Format Webapps
 
 on:
   pull_request:
     branches:
       - main
+    paths:
+      - 'apps/**'
 
 jobs:
   checks:
