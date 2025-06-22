@@ -51,8 +51,11 @@ base: '/vanessa-games/<app-folder>/';
 
 **Use `mise`** for managing development tool versions:
 
-- Install tools: `mise install` (installs from `.mise.toml`)
-- Setup pre-commit hooks: `pre-commit install` (after mise install)
+- **Quick setup**: Run `./scripts/setup.sh` to initialize everything
+- Manual setup:
+  - Install tools: `mise install` (installs from `.mise.toml`)
+  - Install dependencies: `pnpm install`
+  - Setup pre-commit hooks: `pre-commit install`
 
 ### iOS Development Tools
 
