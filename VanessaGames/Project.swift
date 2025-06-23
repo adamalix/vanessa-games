@@ -54,7 +54,7 @@ let project = Project(
                     "LSApplicationCategoryType": "public.app-category.kids-games",
                     "UILaunchScreen": [
                         "UIColorName": "",
-                        "UIImageName": "",
+                        "UIImageName": ""
                     ],
                     "UISupportedInterfaceOrientations": [
                         "UIInterfaceOrientationPortrait",
@@ -100,7 +100,7 @@ let project = Project(
                 .target(name: "ClausyTheCloud"),
                 .target(name: "SharedGameEngine")
             ]
-        ),
+        )
     ],
     schemes: [
         .scheme(
@@ -115,6 +115,6 @@ let project = Project(
             shared: true,
             buildAction: .buildAction(targets: ["SharedGameEngine"]),
             testAction: .targets(["SharedGameEngineTests"])
-        ),
+        )
     ]
 )

@@ -1,5 +1,5 @@
-import SwiftUI
 import SharedGameEngine
+import SwiftUI
 
 @main
 struct ClausyTheCloudApp: App {

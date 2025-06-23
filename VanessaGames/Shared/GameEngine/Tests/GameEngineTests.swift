@@ -1,5 +1,5 @@
-import Testing
 @testable import SharedGameEngine
+import Testing
 
 @MainActor
 struct GameEngineTests {

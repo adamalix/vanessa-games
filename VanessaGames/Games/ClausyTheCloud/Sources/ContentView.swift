@@ -1,6 +1,6 @@
-import SwiftUI
-import SharedGameEngine
 import SharedAssets
+import SharedGameEngine
+import SwiftUI
 
 struct ContentView: View {
     var body: some View {
