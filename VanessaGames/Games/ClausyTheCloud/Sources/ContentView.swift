@@ -49,11 +49,14 @@ struct ContentView: View {
                 VStack {
                     Spacer()
                     HStack {
-                        Button(action: {}) {
-                            Image(systemName: "arrow.left")
-                                .font(.title)
-                                .foregroundColor(.white)
-                        }
+                        Button(
+                            action: {},
+                            label: {
+                                Image(systemName: "arrow.left")
+                                    .font(.title)
+                                    .foregroundColor(.white)
+                            }
+                        )
                         .frame(width: 60, height: 60)
                         .background(.gray.opacity(0.7))
                         .clipShape(Circle())
@@ -61,22 +64,27 @@ struct ContentView: View {
                         .onLongPressGesture(
                             minimumDuration: 0,
                             maximumDistance: .infinity,
-                            perform: {}) { pressing in
-                            leftPressed = pressing
-                            if pressing {
-                                startMovingLeft()
-                            } else {
-                                stopMovingLeft()
+                            perform: {},
+                            onPressingChanged: { pressing in
+                                leftPressed = pressing
+                                if pressing {
+                                    startMovingLeft()
+                                } else {
+                                    stopMovingLeft()
+                                }
                             }
-                        }
+                        )
 
                         Spacer()
 
-                        Button(action: {}) {
-                            Image(systemName: "arrow.right")
-                                .font(.title)
-                                .foregroundColor(.white)
-                        }
+                        Button(
+                            action: {},
+                            label: {
+                                Image(systemName: "arrow.right")
+                                    .font(.title)
+                                    .foregroundColor(.white)
+                            }
+                        )
                         .frame(width: 60, height: 60)
                         .background(.gray.opacity(0.7))
                         .clipShape(Circle())
@@ -84,14 +92,16 @@ struct ContentView: View {
                         .onLongPressGesture(
                             minimumDuration: 0,
                             maximumDistance: .infinity,
-                            perform: {}) { pressing in
-                            rightPressed = pressing
-                            if pressing {
-                                startMovingRight()
-                            } else {
-                                stopMovingRight()
+                            perform: {},
+                            onPressingChanged: { pressing in
+                                rightPressed = pressing
+                                if pressing {
+                                    startMovingRight()
+                                } else {
+                                    stopMovingRight()
+                                }
                             }
-                        }
+                        )
                     }
                     .padding(.horizontal, 20)
                     .padding(.bottom, 30)
