@@ -16,3 +16,9 @@ repos:
         entry: pnpm exec prettier --write
         language: system
         files: \.(js|jsx|ts|tsx|json|css|scss|md|yaml|yml)$
+      - id: swiftlint
+        name: SwiftLint
+        entry: ./scripts/swiftlint.sh
+        language: system
+        files: \.swift$
+        pass_filenames: false

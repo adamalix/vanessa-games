@@ -71,6 +71,7 @@ let project = Project(
             ),
             sources: ["Games/ClausyTheCloud/Sources/**"],
             resources: ["Games/ClausyTheCloud/Resources/**"],
+            scripts: commonScripts(),
             dependencies: [
                 .target(name: "SharedGameEngine"),
                 .target(name: "SharedAssets")
@@ -118,3 +119,13 @@ let project = Project(
         )
     ]
 )
+
+func commonScripts() -> [TargetScript] {
+    [
+        .pre(
+            path: .path("../scripts/swiftlint.sh"),
+            name: "SwiftLint",
+            basedOnDependencyAnalysis: false
+        )
+    ]
+}
