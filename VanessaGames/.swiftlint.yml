@@ -1,0 +1,65 @@
+swiftlint_version: 0.59.1
+
+included:
+  - './Games'
+  - './Shared'
+
+disabled_rules:
+  - todo
+  - redundant_discardable_let
+  - type_body_length
+
+opt_in_rules:
+  - file_header
+  - sorted_imports
+  - convenience_type
+  - empty_count
+  - empty_string
+  - first_where
+  - contains_over_filter_count
+  - contains_over_filter_is_empty
+  - contains_over_first_not_nil
+  - contains_over_range_nil_comparison
+  - prefer_self_type_over_type_of_self
+  - flatmap_over_map_reduce
+  - implicit_return
+  - last_where
+  - reduce_into
+  - redundant_nil_coalescing
+  - redundant_self_in_closure
+  - redundant_type_annotation
+  - weak_delegate
+  - modifier_order
+  - unneeded_parentheses_in_closure_argument
+  - shorthand_optional_binding
+  - array_init
+
+custom_rules:
+  avoid_asyncimage:
+    name: 'Avoid AsyncImage'
+    regex: '\bAsyncImage((\()|.init)'
+    message: 'Use `KFImage` instead as it caches images on disk.'
+    severity: warning
+  avoid_string_imageref:
+    name: 'Avoid referencing image assets via strings'
+    regex: '\bImage\("'
+    message: 'Use the generated asset references instead of string names'
+    severity: warning
+  disable_print:
+    included: ".*\\.swift"
+    name: 'print usage'
+    regex: "((\\bprint)|(Swift\\.print))\\s*\\("
+    message: 'Prefer Logger over print'
+    severity: warning
+
+file_header:
+  forbidden_string: 'TODO: Remove this comment'
+
+line_length:
+  ignores_comments: true
+  ignores_interpolated_strings: true
+  ignores_urls: true
+
+file_length:
+  warning: 500
+  error: 1000
