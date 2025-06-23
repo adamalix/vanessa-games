@@ -51,6 +51,18 @@ let project = Project(
             infoPlist: .extendingDefault(
                 with: [
                     "CFBundleDisplayName": "Clausy the Cloud",
+                    "CFBundleIcons": [
+                        "CFBundlePrimaryIcon": [
+                            "CFBundleIconFiles": [],
+                            "CFBundleIconName": "AppIcon"
+                        ]
+                    ],
+                    "CFBundleIcons~ipad": [
+                        "CFBundlePrimaryIcon": [
+                            "CFBundleIconFiles": [],
+                            "CFBundleIconName": "AppIcon"
+                        ]
+                    ],
                     "LSApplicationCategoryType": "public.app-category.kids-games",
                     "UILaunchScreen": [
                         "UIColorName": "",
