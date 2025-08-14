@@ -174,3 +174,5 @@ Packages/
 Package.pins
 Package.resolved
 *.xcscmblueprint
+
+*buildServer.json
