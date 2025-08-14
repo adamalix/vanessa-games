@@ -102,8 +102,8 @@ base: '/vanessa-games/<app-folder>/';
 ### iOS Development Tools
 
 - **SwiftLint** 0.59.1 - Swift code linting
-- **Tuist** 4.54.3 - Xcode project generation
-- **Periphery** 3.1.0 - unused code detection
+- **Tuist** 4.59.2 - Xcode project generation
+- **Periphery** 3.2.0 - unused code detection
 
 ### Code Quality Tools
 
