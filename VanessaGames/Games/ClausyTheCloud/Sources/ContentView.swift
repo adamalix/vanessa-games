@@ -145,14 +145,14 @@ struct ContentView: View {
             // Draw flower petals
             let flowerCenter = CGPoint(x: (plant.xPos + 40) * scaleX, y: (plant.yPos - plant.height) * scaleY)
 
-            for (index, color) in plant.petals.enumerated() {
+            for (index, gameColor) in plant.petals.enumerated() {
                 let angle = Double(index) / Double(plant.petals.count) * 2 * .pi
                 let petalX = flowerCenter.x + cos(angle) * 10 * scaleX
                 let petalY = flowerCenter.y + sin(angle) * 10 * scaleY
 
                 context.fill(
                     Path(ellipseIn: CGRect(x: petalX - 6, y: petalY - 6, width: 12, height: 12)),
-                    with: .color(color)
+                    with: .color(colorFromGameColor(gameColor))
                 )
             }
 
@@ -240,6 +240,18 @@ struct ContentView: View {
     private func stopMovingRight() {
         rightTimer?.invalidate()
         rightTimer = nil
+    }
+
+    private func colorFromGameColor(_ gameColor: GameColor) -> Color {
+        switch gameColor {
+        case .red: return .red
+        case .orange: return .orange
+        case .yellow: return .yellow
+        case .green: return .green
+        case .blue: return .blue
+        case .indigo: return .indigo
+        case .purple: return .purple
+        }
     }
 }
 

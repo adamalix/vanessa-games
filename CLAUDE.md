@@ -361,3 +361,5 @@ See `AGENTS_TESTING.md` for detailed implementation examples and the complete te
 - Periphery for unused code detection
 
 - Use the @scripts/generate_snapshots.sh script to generate snapshots
+
+- you have to run `mise exec -- tuist generate --no-open --path VanessaGames` whenever you add new files to the iOS project

@@ -1,7 +1,9 @@
+import Dependencies
 import Foundation
 import Observation
 import OSLog
-import SwiftUI
+
+// MARK: - Game Types
 
 /// Core game engine for Vanessa Games
 @MainActor
@@ -26,9 +28,9 @@ public struct Plant {
     public let yPos: CGFloat
     public var height: CGFloat
     public var grown: Bool
-    public let petals: [Color]
+    public let petals: [GameColor]
 
-    public init(xPos: CGFloat, yPos: CGFloat, height: CGFloat = 0, grown: Bool = false, petals: [Color]) {
+    public init(xPos: CGFloat, yPos: CGFloat, height: CGFloat = 0, grown: Bool = false, petals: [GameColor]) {
         self.xPos = xPos
         self.yPos = yPos
         self.height = height
@@ -73,7 +75,7 @@ public final class ClausyGameEngine {
     public var rainDrops: [RainDrop] = []
     public var gameWon = false
 
-    private var gameTimer: Timer?
+    private var gameTimer: (any GameTimer)?
     private let canvasWidth: CGFloat
     private let canvasHeight: CGFloat
     private let plantCount = 6
@@ -97,22 +99,25 @@ public final class ClausyGameEngine {
         }
     }
 
-    private func getRandomRainbowColor() -> Color {
-        let colors: [Color] = [.red, .orange, .yellow, .green, .blue, .indigo, .purple]
-        return colors.randomElement() ?? .red
+    private func getRandomRainbowColor() -> GameColor {
+        @Dependency(\.gameRandom) var random
+        return random.gameColorElement(GameColor.allCases) ?? .red
     }
 
     public func startGame() {
-        gameTimer = Timer.scheduledTimer(withTimeInterval: 1.0/60.0, repeats: true) { _ in
-            Task { @MainActor in
+        @Dependency(\.timerService) var timerService
+        Task {
+            gameTimer = await timerService.repeatingTimer(1.0/60.0) { @MainActor in
                 self.gameLoop()
             }
         }
     }
 
     public func stopGame() {
-        gameTimer?.invalidate()
-        gameTimer = nil
+        Task {
+            await gameTimer?.invalidate()
+            gameTimer = nil
+        }
     }
 
     private func gameLoop() {
@@ -128,8 +133,9 @@ public final class ClausyGameEngine {
         }
 
         // Add new rain drop
+        @Dependency(\.gameRandom) var random
         let newDrop = RainDrop(
-            xPos: cloud.xPos + CGFloat.random(in: -30...30),
+            xPos: cloud.xPos + random.cgFloat(-30...30),
             yPos: cloud.yPos + 40
         )
         rainDrops.append(newDrop)

@@ -483,8 +483,8 @@ let flowerColor = random.element(from: availableColors)
 
 **Phase 2 Complete When:**
 
-- [ ] Core dependencies defined and injectable (GameClock, GameRandom, TimerService)
-- [ ] ClausyGameEngine fully uses swift-dependencies pattern
+- [x] Core dependencies defined and injectable (GameClock, GameRandom, TimerService)
+- [x] ClausyGameEngine fully uses swift-dependencies pattern
 - [ ] ContentView accepts injected game engine
 - [ ] All existing tests pass with new architecture
 - [ ] Enhanced test coverage for game logic
@@ -561,7 +561,27 @@ let flowerColor = random.element(from: availableColors)
 
 **Decision:** Skip creating GameRenderer component - current architecture is well-organized with proper separation.
 
-**Next Steps:** Ready for Task 2.1 (create core dependency services).
+#### Task 2.1: Inject Dependencies into ClausyGameEngine (COMPLETED)
+
+**Changes Made:**
+
+- ✅ Created GameClockService with live/preview/test implementations
+- ✅ Created GameRandomService with seeded generator support
+- ✅ Created TimerService with controllable test implementations
+- ✅ Replaced Timer usage in ClausyGameEngine with injected TimerService
+- ✅ Replaced random number generation with GameRandomService
+- ✅ Updated ClausyGameEngine to use @Dependency property wrappers
+- ✅ Implemented GameColor enum for type-safe color handling
+- ✅ Project builds successfully with new architecture
+
+**Architecture Benefits:**
+
+- Game engine now fully testable with controlled dependencies
+- Deterministic testing possible with seeded generators
+- Clean separation between game logic and external dependencies
+- Type-safe color operations eliminate runtime errors
+
+**Next Steps:** Ready for Task 2.2 (refactor ContentView for testability).
 
 ---
 
