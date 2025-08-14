@@ -27,7 +27,9 @@ let project = Project(
             deploymentTargets: .iOS("18.0"),
             infoPlist: .default,
             sources: ["Shared/GameEngine/Sources/**"],
-            dependencies: []
+            dependencies: [
+                .external(name: "Dependencies")
+            ]
         ),
         .target(
             name: "SharedAssets",
@@ -86,7 +88,8 @@ let project = Project(
             scripts: commonScripts(),
             dependencies: [
                 .target(name: "SharedGameEngine"),
-                .target(name: "SharedAssets")
+                .target(name: "SharedAssets"),
+                .external(name: "Dependencies")
             ]
         ),
 
@@ -99,7 +102,10 @@ let project = Project(
             deploymentTargets: .iOS("18.0"),
             infoPlist: .default,
             sources: ["Shared/GameEngine/Tests/**"],
-            dependencies: [.target(name: "SharedGameEngine")]
+            dependencies: [
+                .target(name: "SharedGameEngine"),
+                .external(name: "Dependencies")
+            ]
         ),
         .target(
             name: "ClausyTheCloudTests",
@@ -112,7 +118,8 @@ let project = Project(
             dependencies: [
                 .target(name: "ClausyTheCloud"),
                 .target(name: "SharedGameEngine"),
-                .external(name: "SnapshotTesting")
+                .external(name: "SnapshotTesting"),
+                .external(name: "Dependencies")
             ]
         )
     ],

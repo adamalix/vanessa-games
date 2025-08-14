@@ -16,7 +16,7 @@ This document outlines a comprehensive plan to make the iOS games in the Vanessa
 
 ### Areas for Improvement
 
-- ❌ No dependency injection system
+- ✅ swift-dependencies package integrated into project
 - ❌ Drawing logic duplicated between views and tests
 - ❌ Limited control over randomization and timing
 - ❌ No architecture documentation for testability
@@ -477,8 +477,8 @@ let flowerColor = random.element(from: availableColors)
 
 **Phase 1 Complete When:**
 
-- [ ] Target-specific dependency needs identified
-- [ ] swift-dependencies added only to targets that need it
+- [x] Target-specific dependency needs identified
+- [x] swift-dependencies added only to targets that need it
 - [ ] Core dependencies defined and injectable
 
 **Phase 2 Complete When:**
@@ -515,6 +515,41 @@ let flowerColor = random.element(from: availableColors)
 - **Performance Regression Detection**: Alert on performance degradation
 - **Visual Regression Testing**: Automated snapshot comparison
 - **Device Testing Matrix**: Test on multiple device configurations
+
+---
+
+## Implementation Progress
+
+### ✅ Completed Tasks
+
+#### Task 1.1: Identify Target-Specific Dependency Needs (COMPLETED)
+
+**Analysis Results:**
+
+- **SharedGameEngine**: HIGH PRIORITY - Has Timer usage and randomization dependencies
+- **ClausyTheCloud**: MEDIUM PRIORITY - Has Timer usage in ContentView and creates ClausyGameEngine internally
+- **SharedAssets**: NO DEPENDENCIES - Only provides static bundle access
+- **Test targets**: INDIRECT NEED - Need access to dependency system for controlled testing
+
+**External Dependencies Found:**
+
+- `Timer.scheduledTimer` in ClausyGameEngine:106 (game loop)
+- `Timer.scheduledTimer` in ContentView:219,233 (button controls)
+- `CGFloat.random(in: -30...30)` in ClausyGameEngine:132 (rain positioning)
+- `colors.randomElement()` in ClausyGameEngine:102 (flower colors)
+
+#### Task 1.2: Add swift-dependencies to Required Targets (COMPLETED)
+
+**Changes Made:**
+
+- ✅ Added swift-dependencies v1.9.3 to `Tuist/Package.swift`
+- ✅ Added Dependencies to SharedGameEngine target
+- ✅ Added Dependencies to ClausyTheCloud target
+- ✅ Added Dependencies to SharedGameEngineTests target
+- ✅ Added Dependencies to ClausyTheCloudTests target
+- ✅ Left SharedAssets unchanged (no external dependencies)
+
+**Next Steps:** Ready for Task 1.3 (assess drawing component duplication) and Task 2.1 (create core dependency services).
 
 ---
 
