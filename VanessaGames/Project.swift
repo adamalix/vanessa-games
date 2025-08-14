@@ -111,7 +111,8 @@ let project = Project(
             sources: ["Games/ClausyTheCloud/Tests/**"],
             dependencies: [
                 .target(name: "ClausyTheCloud"),
-                .target(name: "SharedGameEngine")
+                .target(name: "SharedGameEngine"),
+                .external(name: "SnapshotTesting")
             ]
         )
     ],
