@@ -143,6 +143,208 @@ VanessaGames/
 └── VanessaGames.xcworkspace  # Generated Xcode workspace
 ```
 
+## iOS Testing Guidelines
+
+### Testing Philosophy
+
+The iOS apps follow a comprehensive testing strategy to ensure reliability and maintainability. All game logic, views, and integrations should be thoroughly tested.
+
+### Test Types and Coverage
+
+#### Unit Tests (Required)
+
+- **Game Logic**: All business rules, calculations, and state transitions
+- **Models**: Data structures and their behaviors
+- **Edge Cases**: Boundary conditions, error states, and invalid inputs
+- **Performance**: Critical path benchmarks for game loops and rendering
+
+#### Integration Tests (Required)
+
+- **View + Engine Integration**: SwiftUI views working with game engines
+- **End-to-End Scenarios**: Complete game flows from start to finish
+- **Component Interactions**: Communication between different system layers
+
+#### Snapshot Tests (Required)
+
+- **Visual Regression**: Ensure UI changes are intentional
+- **Device Variations**: Test across iPhone and iPad layouts
+- **Accessibility States**: High contrast, large text, VoiceOver
+- **Game States**: All major visual states of the game
+
+### Testing Best Practices
+
+#### When Writing Tests
+
+1. **Use dependency injection** - Inject all external dependencies (time, randomization, timers)
+2. **Make tests deterministic** - Use controlled dependencies to avoid flaky tests
+3. **Test behavior, not implementation** - Focus on what the code does, not how
+4. **Use descriptive test names** - Names should clearly describe the scenario being tested
+5. **Keep tests focused** - One behavior per test function
+
+#### Test Structure Pattern
+
+```swift
+@Test func testSpecificBehavior() {
+    // Arrange: Set up test conditions
+    let engine = createTestEngine()
+
+    // Act: Perform the action being tested
+    engine.performAction()
+
+    // Assert: Verify expected outcomes
+    #expect(engine.state == expectedState)
+}
+```
+
+#### Snapshot Testing Pattern
+
+```swift
+@Test func testViewState() {
+    let engine = createTestEngineWithState()
+    let view = ContentView(gameEngine: engine)
+
+    assertSnapshot(
+        of: view,
+        as: .image(layout: .device(config: .iPhone15))
+    )
+}
+```
+
+### Dependency Injection for Testing
+
+Use `swift-dependencies` for all external dependencies to enable deterministic testing:
+
+#### Common Dependencies to Inject
+
+- **Time/Clocks**: Use `ImmediateClock` for instant time progression
+- **Random Numbers**: Use seeded generators for predictable randomness
+- **Timers**: Use controllable timer services instead of `Timer`
+- **System Services**: Mock network, file system, and device interactions
+
+#### Example Dependency Usage
+
+```swift
+@MainActor
+@Observable
+final class GameEngine {
+    @Dependency(\.gameClock) var clock
+    @Dependency(\.gameRandom) var random
+
+    // Use injected dependencies instead of direct system calls
+    private func generateRandomPosition() -> CGPoint {
+        CGPoint(
+            x: random.double(in: 0...screenWidth),
+            y: random.double(in: 0...screenHeight)
+        )
+    }
+}
+
+// In tests - control the dependencies
+@Test func testRandomPositionGeneration() {
+    let engine = withDependencies {
+        $0.gameRandom = SeededRandom(seed: 42)
+    } operation: {
+        GameEngine()
+    }
+
+    let position = engine.generateRandomPosition()
+    // Position will be deterministic based on seed
+    #expect(position.x == expectedX)
+    #expect(position.y == expectedY)
+}
+```
+
+### Testing Commands
+
+#### Generate/Update Snapshots
+
+```bash
+# From repository root - regenerate all snapshots
+./scripts/generate_snapshots.sh
+
+# Run tests normally to verify snapshots
+mise exec -- tuist test --path VanessaGames
+```
+
+#### Run Specific Test Suites
+
+```bash
+# Test specific target
+mise exec -- tuist test --path VanessaGames ClausyTheCloud
+
+# Test shared components
+mise exec -- tuist test --path VanessaGames SharedGameEngine
+```
+
+### Test Organization
+
+#### File Structure
+
+```
+Games/ClausyTheCloud/Tests/
+├── ClausyTheCloudTests.swift       # Game logic unit tests
+├── ContentViewSnapshotTests.swift  # View snapshot tests
+└── __Snapshots__/                  # Generated snapshot images
+```
+
+#### Test Categories
+
+- **Unit Tests**: Test individual components in isolation
+- **Integration Tests**: Test component interactions
+- **Snapshot Tests**: Test visual rendering and layout
+- **Performance Tests**: Test critical path performance
+
+### Test Maintenance
+
+#### When Adding New Features
+
+1. **Write tests first** - Define expected behavior before implementation
+2. **Update related tests** - Ensure existing tests still pass
+3. **Add snapshot tests** - For any new visual components
+4. **Test edge cases** - Consider boundary conditions and error states
+
+#### When Modifying Existing Code
+
+1. **Run tests before changes** - Establish baseline
+2. **Keep tests green during refactoring** - Fix tests as you refactor
+3. **Update test names if needed** - Keep test descriptions accurate
+4. **Review snapshot changes** - Verify visual changes are intentional
+
+#### When Tests Fail
+
+1. **Check dependencies** - Ensure injected dependencies match expectations
+2. **Verify test data** - Confirm test setup creates expected initial state
+3. **Run tests individually** - Isolate failing tests to identify root cause
+4. **Look for non-determinism** - Check for uncontrolled randomness or timing
+
+### Performance Testing
+
+#### Critical Metrics to Monitor
+
+- **Frame Rate**: Game loop should maintain 60 FPS
+- **Memory Usage**: No memory leaks during gameplay
+- **Launch Time**: App startup should be under 2 seconds
+- **Battery Impact**: Minimize power consumption during gameplay
+
+#### Performance Test Pattern
+
+```swift
+@Test func testGameLoopPerformance() {
+    let engine = createTestEngine()
+
+    measure {
+        // Run multiple game loop iterations
+        for _ in 0..<1000 {
+            engine.gameLoop()
+        }
+    }
+}
+```
+
+### Common Testing Patterns
+
+See `AGENTS_TESTING.md` for detailed implementation examples and the complete testing strategy.
+
 ## Linting Configuration
 
 ### Web Projects
@@ -157,3 +359,5 @@ VanessaGames/
 - SwiftLint configuration with strict rules
 - Automated via Xcode build phases
 - Periphery for unused code detection
+
+- Use the @scripts/generate_snapshots.sh script to generate snapshots
