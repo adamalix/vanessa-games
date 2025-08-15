@@ -276,6 +276,13 @@ mise exec -- tuist test --path VanessaGames ClausyTheCloud
 mise exec -- tuist test --path VanessaGames SharedGameEngine
 ```
 
+#### Run Snapshot Tests
+
+```bash
+# Run snapshot tests for ClausyTheCloud
+mise exec -- tuist test --path VanessaGames ClausyTheCloud --no-selective-testing --device "iPhone 16 Pro" --os "18.1"
+```
+
 ### Test Organization
 
 #### File Structure
