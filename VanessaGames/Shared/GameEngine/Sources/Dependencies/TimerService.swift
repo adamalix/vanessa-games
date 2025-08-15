@@ -56,19 +56,24 @@ public struct NoOpTimer: GameTimer {
 }
 
 /// A real timer wrapper for production use
-public actor RealTimer: GameTimer {
+@MainActor
+public final class RealTimer: GameTimer {
     private var timer: Timer?
     private let action: @Sendable () async -> Void
 
     init(interval: TimeInterval, repeats: Bool, action: @escaping @Sendable () async -> Void) {
         self.action = action
 
+        // Now that we're on @MainActor, Timer.scheduledTimer should work correctly
         self.timer = Timer.scheduledTimer(withTimeInterval: interval, repeats: repeats) { _ in
-            Task { await action() }
+            Task { @MainActor in
+                await action()
+            }
         }
+        print("🎮 Timer scheduled with interval: \(interval)")
     }
 
-    public func invalidate() async {
+    public func invalidate() {
         timer?.invalidate()
         timer = nil
     }
@@ -115,10 +120,10 @@ extension TimerService {
     /// Live implementation using real Foundation timers
     public static let live = Self(
         repeatingTimer: { interval, action in
-            RealTimer(interval: interval, repeats: true, action: action)
+            await RealTimer(interval: interval, repeats: true, action: action)
         },
         delayedAction: { delay, action in
-            RealTimer(interval: delay, repeats: false, action: action)
+            await RealTimer(interval: delay, repeats: false, action: action)
         }
     )
 

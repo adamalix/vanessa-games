@@ -106,10 +106,12 @@ public final class ClausyGameEngine {
 
     public func startGame() {
         @Dependency(\.timerService) var timerService
+        print("🎮 ClausyGameEngine: Starting game...")
         Task {
             gameTimer = await timerService.repeatingTimer(1.0/60.0) { @MainActor in
                 self.gameLoop()
             }
+            print("🎮 ClausyGameEngine: Timer created")
         }
     }
 
@@ -121,6 +123,7 @@ public final class ClausyGameEngine {
     }
 
     private func gameLoop() {
+        print("🎮 Game loop running - rain drops: \(rainDrops.count)")
         updateRain()
         updatePlants()
         checkWinCondition()
