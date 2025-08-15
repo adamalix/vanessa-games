@@ -491,7 +491,7 @@ let flowerColor = random.element(from: availableColors)
 
 **Phase 3 Complete When:**
 
-- [ ] Snapshot tests cover all major view states
+- [x] Snapshot tests cover all major view states
 - [ ] Performance tests establish benchmarks
 - [ ] Property-based tests verify game invariants
 
@@ -637,6 +637,50 @@ let flowerColor = random.element(from: availableColors)
 - Memory efficiency verified to prevent accumulation bugs
 
 **Next Steps:** Ready for Task 2.4 (Integration Tests) or Phase 3 (Enhanced Testing Features).
+
+#### Task 3.1: Enhanced Snapshot Testing (COMPLETED)
+
+**Changes Made:**
+
+- ✅ Created comprehensive ContentViewSnapshotTests.swift with 21 different visual tests
+- ✅ Added device-specific snapshot tests for iPhone 13, iPhone 13 Pro, iPhone 13 Pro Max, iPad Pro 11", iPad Pro 12.9", and iPad Mini
+- ✅ Added game state snapshot tests covering normal gameplay, win screen, rain drops, and grown plants states
+- ✅ Added dark mode variations for all major view configurations
+- ✅ Added orientation tests for both portrait and landscape modes
+- ✅ Added accessibility snapshot tests with large text (accessibilityExtraExtraExtraLarge)
+- ✅ Added combination tests (dark mode + large text, dark mode + landscape, full accessibility)
+- ✅ Successfully generated all 21 snapshot images using the generate_snapshots.sh script
+- ✅ All snapshot tests pass when run normally (46 total tests passing)
+
+**Test Coverage Added:**
+
+- **Device Matrix**: 6 different iOS device configurations
+- **Dark Mode**: 5 dark mode variations across devices and orientations
+- **Game States**: 4 different visual game states (normal, win, rain, grown plants)
+- **Accessibility**: 4 accessibility-focused tests with large text and combinations
+- **Orientations**: 3 landscape orientation tests
+- **Total**: 21 comprehensive snapshot tests covering visual regressions
+
+**Architecture Benefits:**
+
+- Comprehensive visual regression protection for UI changes
+- Device-specific layout verification ensures proper scaling
+- Dark mode support verification across all major views
+- Accessibility compliance testing with large text scenarios
+- Deterministic visual testing with controlled dependencies
+- Easy snapshot regeneration workflow with provided script
+
+**Snapshot Files Generated:**
+
+All snapshots stored in `VanessaGames/Games/ClausyTheCloud/Tests/__Snapshots__/ContentViewSnapshotTests/`:
+
+- Device-specific: 6 files covering iPhone and iPad variants
+- Game states: 4 files covering different gameplay scenarios
+- Dark mode: 5 files covering dark appearance variations
+- Accessibility: 4 files covering large text and combinations
+- Landscape: 3 files covering orientation variations
+
+**Next Steps:** Ready for Task 3.2 (Performance & Memory Tests) or Task 3.3 (Property-Based Testing).
 
 ---
 
