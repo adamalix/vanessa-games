@@ -136,7 +136,7 @@ dist
 .pnp.*
 
 # Claude Code directories
-.claude/
+.claude/settings.local.json
 
 # iOS/Xcode
 *.xcworkspace/xcuserdata/
