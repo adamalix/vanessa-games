@@ -8,7 +8,7 @@ export PATH="$HOME/.local/bin:$PATH"
 # Install tools from .mise.toml in repo root
 cd "$CI_PRIMARY_REPOSITORY_PATH"
 mise install
-eval "$(mise activate bash --shims)"
+eval "$(mise activate sh --shims)"
 
 # Navigate to VanessaGames directory and generate Xcode project
 cd "$CI_PRIMARY_REPOSITORY_PATH/VanessaGames"
