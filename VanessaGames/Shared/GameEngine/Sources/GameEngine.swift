@@ -180,4 +180,11 @@ public final class ClausyGameEngine {
         cloud.xPos = canvasWidth / 2
         setupPlants()
     }
+
+    #if DEBUG
+    /// Manually advance the game loop for testing purposes
+    internal func advanceGameLoop() {
+        gameLoop()
+    }
+    #endif
 }

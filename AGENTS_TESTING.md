@@ -485,9 +485,9 @@ let flowerColor = random.element(from: availableColors)
 
 - [x] Core dependencies defined and injectable (GameClock, GameRandom, TimerService)
 - [x] ClausyGameEngine fully uses swift-dependencies pattern
-- [ ] ContentView accepts injected game engine
-- [ ] All existing tests pass with new architecture
-- [ ] Enhanced test coverage for game logic
+- [x] ContentView accepts injected game engine
+- [x] All existing tests pass with new architecture
+- [x] Enhanced test coverage for game logic
 
 **Phase 3 Complete When:**
 
@@ -581,7 +581,28 @@ let flowerColor = random.element(from: availableColors)
 - Clean separation between game logic and external dependencies
 - Type-safe color operations eliminate runtime errors
 
-**Next Steps:** Ready for Task 2.2 (refactor ContentView for testability).
+#### Task 2.2: Refactor ContentView for Testability (COMPLETED)
+
+**Changes Made:**
+
+- ✅ Refactored ContentView to accept injected ClausyGameEngine instead of creating it internally
+- ✅ Added dependency injection for TimerService to replace direct Timer usage in button controls
+- ✅ Created dual initializers: default for production, test-friendly for custom engine injection
+- ✅ Separated UI state from game state for better testability
+- ✅ Updated ClausyTheCloudApp.swift to use simplified ContentView initialization
+- ✅ Added `advanceGameLoop()` method to ClausyGameEngine for deterministic testing (DEBUG-only)
+- ✅ Updated all failing tests to use dependency injection with controlled dependencies
+- ✅ All 12 tests now pass with new architecture
+
+**Architecture Benefits:**
+
+- ContentView now fully testable with controlled dependencies
+- Clean separation between UI interactions and game logic
+- Timer operations use injected dependencies for consistent testing
+- Tests run deterministically without real time delays
+- DEBUG-only testing methods excluded from production builds
+
+**Next Steps:** Ready for Phase 3 (Enhanced Testing Features) or Task 2.3/2.4 if additional game logic testing needed.
 
 ---
 
