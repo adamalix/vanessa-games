@@ -70,7 +70,6 @@ public final class RealTimer: GameTimer {
                 await action()
             }
         }
-        print("🎮 Timer scheduled with interval: \(interval)")
     }
 
     public func invalidate() {

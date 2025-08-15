@@ -65,7 +65,7 @@ extension GameClockService {
     }
 
     /// Test implementation that tracks time advancement
-    public static func tracked() -> (service: Self, getCurrentTime: () -> Date, advance: (TimeInterval) -> Void) {
+    public static func tracked() -> TrackedClockService {
         let currentTime = LockIsolated(Date(timeIntervalSince1970: 0))
 
         let service = Self(
@@ -84,8 +84,19 @@ extension GameClockService {
             }
         }
 
-        return (service, getCurrentTime, advance)
+        return TrackedClockService(
+            service: service,
+            getCurrentTime: getCurrentTime,
+            advance: advance
+        )
     }
+}
+
+/// Result type for tracked clock service to avoid large tuple violation
+public struct TrackedClockService {
+    public let service: GameClockService
+    public let getCurrentTime: () -> Date
+    public let advance: (TimeInterval) -> Void
 }
 
 extension Duration {
