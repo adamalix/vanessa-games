@@ -13,7 +13,7 @@ struct ContentViewSnapshotTests {
 
     let ciPath: StaticString =
     """
-    /Volumes/workspace/repository/VanessaGames/ci_scripts/resources/ClausySnapshots/ContentViewSnapshotTests.swift
+    /Volumes/workspace/repository/ci_scripts/resources/ClausySnapshots/ContentViewSnapshotTests.swift
     """
 
     let localPath: StaticString = #filePath
