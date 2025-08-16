@@ -120,9 +120,6 @@ let project = Project(
                 .target(name: "SharedGameEngine"),
                 .external(name: "SnapshotTesting"),
                 .external(name: "Dependencies")
-            ],
-            environmentVariables: [
-                "CI_XCODE_CLOUD": "$(CI_XCODE_CLOUD)"
             ]
         )
     ],
@@ -131,7 +128,14 @@ let project = Project(
             name: "ClausyTheCloud",
             shared: true,
             buildAction: .buildAction(targets: ["ClausyTheCloud"]),
-            testAction: .targets(["ClausyTheCloudTests"]),
+            testAction: .targets(
+                ["ClausyTheCloudTests"],
+                arguments: .arguments(
+                    environmentVariables: [
+                        "CI_XCODE_CLOUD" : .environmentVariable(value: "$(CI_XCODE_CLOUD)", isEnabled: true)
+                    ]
+                )
+            ),
             runAction: .runAction(executable: "ClausyTheCloud")
         ),
         .scheme(
