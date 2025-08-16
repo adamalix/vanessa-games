@@ -4,6 +4,10 @@ included:
   - './Games'
   - './Shared'
 
+excluded:
+  - './Tuist/.build'
+  - './Derived'
+
 disabled_rules:
   - todo
   - redundant_discardable_let

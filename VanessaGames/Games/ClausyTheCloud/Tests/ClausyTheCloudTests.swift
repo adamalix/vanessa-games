@@ -1,4 +1,5 @@
 import CoreGraphics
+import Dependencies
 @testable import SharedGameEngine
 import Testing
 
@@ -67,17 +68,18 @@ struct ClausyTheCloudTests {
         #expect(gameEngine.cloud.xPos <= 550) // canvasWidth - width/2 = 550
     }
 
-    @Test func rainDropGeneration() async throws {
-        let gameEngine = ClausyGameEngine(canvasWidth: 600, canvasHeight: 800)
+    @Test func rainDropGeneration() {
+        let gameEngine = withDependencies {
+            $0.gameRandom = .seeded(42)
+        } operation: {
+            ClausyGameEngine(canvasWidth: 600, canvasHeight: 800)
+        }
 
         // Initially no rain drops
         #expect(gameEngine.rainDrops.isEmpty)
 
-        // Start game to trigger rain generation
-        gameEngine.startGame()
-
-        // Allow some time for rain drops to generate
-        try await Task.sleep(for: .milliseconds(100))
+        // Manually advance game loop to generate rain
+        gameEngine.advanceGameLoop()
 
         // Should have rain drops now
         #expect(!gameEngine.rainDrops.isEmpty)
@@ -88,12 +90,14 @@ struct ClausyTheCloudTests {
             #expect(distanceFromCloud <= 30) // Random range is -30...30
             #expect(rainDrop.yPos >= gameEngine.cloud.yPos + 40) // Starts below cloud
         }
-
-        gameEngine.stopGame()
     }
 
-    @Test func plantGrowth() async throws {
-        let gameEngine = ClausyGameEngine(canvasWidth: 600, canvasHeight: 800)
+    @Test func plantGrowth() {
+        let gameEngine = withDependencies {
+            $0.gameRandom = .seeded(42)
+        } operation: {
+            ClausyGameEngine(canvasWidth: 600, canvasHeight: 800)
+        }
 
         // Position cloud over first plant
         let firstPlant = gameEngine.plants[0]
@@ -103,20 +107,19 @@ struct ClausyTheCloudTests {
         // Verify plant can grow when cloud is positioned correctly
         let initialHeight = firstPlant.height
 
-        // Manually trigger plant update (normally called by game loop)
-        gameEngine.startGame()
-
-        // Allow some time for plant growth
-        try await Task.sleep(for: .milliseconds(100))
+        // Manually advance game loop to update plants
+        gameEngine.advanceGameLoop()
 
         // Plant should have grown
         #expect(gameEngine.plants[0].height > initialHeight)
-
-        gameEngine.stopGame()
     }
 
-    @Test func winCondition() async throws {
-        let gameEngine = ClausyGameEngine(canvasWidth: 600, canvasHeight: 800)
+    @Test func winCondition() {
+        let gameEngine = withDependencies {
+            $0.gameRandom = .seeded(42)
+        } operation: {
+            ClausyGameEngine(canvasWidth: 600, canvasHeight: 800)
+        }
 
         // Manually set all plants to grown
         for index in gameEngine.plants.indices {
@@ -127,14 +130,10 @@ struct ClausyTheCloudTests {
         #expect(gameEngine.gameWon == false)
 
         // Trigger win condition check
-        gameEngine.startGame()
-
-        try await Task.sleep(for: .milliseconds(100))
+        gameEngine.advanceGameLoop()
 
         // Game should be won
         #expect(gameEngine.gameWon == true)
-
-        gameEngine.stopGame()
     }
 
     @Test func gameReset() {
@@ -163,8 +162,12 @@ struct ClausyTheCloudTests {
         }
     }
 
-    @Test func rainDropCleanup() async throws {
-        let gameEngine = ClausyGameEngine(canvasWidth: 600, canvasHeight: 800)
+    @Test func rainDropCleanup() {
+        let gameEngine = withDependencies {
+            $0.gameRandom = .seeded(42)
+        } operation: {
+            ClausyGameEngine(canvasWidth: 600, canvasHeight: 800)
+        }
 
         // Add rain drops below screen (they should be cleaned up)
         gameEngine.rainDrops.append(RainDrop(xPos: 100, yPos: 900)) // Below canvas
@@ -172,17 +175,13 @@ struct ClausyTheCloudTests {
 
         #expect(gameEngine.rainDrops.count == 2)
 
-        // Start game to trigger cleanup
-        gameEngine.startGame()
-
-        try await Task.sleep(for: .milliseconds(100))
+        // Trigger game loop to clean up off-screen drops
+        gameEngine.advanceGameLoop()
 
         // Off-screen rain drops should be removed, but new ones will be generated
         // Check that the initial off-screen drops are gone
         let hasOriginalOffscreenDrops = gameEngine.rainDrops.contains { $0.yPos >= 850 }
         #expect(!hasOriginalOffscreenDrops) // Original off-screen drops should be cleaned up
-
-        gameEngine.stopGame()
     }
 
     // MARK: - Game Model Tests

@@ -5,7 +5,7 @@ eval "$(mise activate bash --shims)"
 
 # Run SwiftLint on the VanessaGames directory
 if [[ -n "$CI_PRIMARY_REPOSITORY_PATH" ]]; then
-    swiftlint --strict "$CI_PRIMARY_REPOSITORY_PATH/VanessaGames"
+    swiftlint --strict "$CI_PRIMARY_REPOSITORY_PATH/VanessaGames" --config "$CI_PRIMARY_REPOSITORY_PATH/VanessaGames/.swiftlint.yml"
 else
     echo "CI_PRIMARY_REPOSITORY_PATH is not set. Skipping linting."
 fi

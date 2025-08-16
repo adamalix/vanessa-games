@@ -1,13 +1,26 @@
+import Dependencies
 import SharedAssets
 import SharedGameEngine
 import SwiftUI
 
 struct ContentView: View {
-    @State private var gameEngine = ClausyGameEngine()
+    @State private var gameEngine: ClausyGameEngine
     @State private var leftPressed = false
     @State private var rightPressed = false
-    @State private var leftTimer: Timer?
-    @State private var rightTimer: Timer?
+    @State private var leftTimer: (any GameTimer)?
+    @State private var rightTimer: (any GameTimer)?
+
+    @Dependency(\.timerService) var timerService
+
+    // Default initializer for production use
+    init() {
+        self._gameEngine = State(initialValue: ClausyGameEngine())
+    }
+
+    // Test initializer that accepts a custom game engine
+    init(gameEngine: ClausyGameEngine) {
+        self._gameEngine = State(initialValue: gameEngine)
+    }
 
     var body: some View {
         GeometryReader { _ in
@@ -145,14 +158,14 @@ struct ContentView: View {
             // Draw flower petals
             let flowerCenter = CGPoint(x: (plant.xPos + 40) * scaleX, y: (plant.yPos - plant.height) * scaleY)
 
-            for (index, color) in plant.petals.enumerated() {
+            for (index, gameColor) in plant.petals.enumerated() {
                 let angle = Double(index) / Double(plant.petals.count) * 2 * .pi
                 let petalX = flowerCenter.x + cos(angle) * 10 * scaleX
                 let petalY = flowerCenter.y + sin(angle) * 10 * scaleY
 
                 context.fill(
                     Path(ellipseIn: CGRect(x: petalX - 6, y: petalY - 6, width: 12, height: 12)),
-                    with: .color(color)
+                    with: .color(colorFromGameColor(gameColor))
                 )
             }
 
@@ -216,30 +229,46 @@ struct ContentView: View {
 
     private func startMovingLeft() {
         gameEngine.moveCloudLeft()
-        leftTimer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { _ in
-            Task { @MainActor in
+        Task {
+            leftTimer = await timerService.repeatingTimer(0.1) { @MainActor in
                 gameEngine.moveCloudLeft()
             }
         }
     }
 
     private func stopMovingLeft() {
-        leftTimer?.invalidate()
-        leftTimer = nil
+        Task {
+            await leftTimer?.invalidate()
+            leftTimer = nil
+        }
     }
 
     private func startMovingRight() {
         gameEngine.moveCloudRight()
-        rightTimer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { _ in
-            Task { @MainActor in
+        Task {
+            rightTimer = await timerService.repeatingTimer(0.1) { @MainActor in
                 gameEngine.moveCloudRight()
             }
         }
     }
 
     private func stopMovingRight() {
-        rightTimer?.invalidate()
-        rightTimer = nil
+        Task {
+            await rightTimer?.invalidate()
+            rightTimer = nil
+        }
+    }
+
+    private func colorFromGameColor(_ gameColor: GameColor) -> Color {
+        switch gameColor {
+        case .red: return .red
+        case .orange: return .orange
+        case .yellow: return .yellow
+        case .green: return .green
+        case .blue: return .blue
+        case .indigo: return .indigo
+        case .purple: return .purple
+        }
     }
 }
 
