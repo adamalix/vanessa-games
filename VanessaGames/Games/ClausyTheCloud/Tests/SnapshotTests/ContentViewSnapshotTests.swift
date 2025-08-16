@@ -9,6 +9,25 @@ import Testing
 @Suite(.snapshots(record: .missing))
 struct ContentViewSnapshotTests {
 
+    let ciPath: StaticString =
+    """
+    /Volumes/workspace/repository/VanessaGames/Games/ClausyTheCloud/\
+    Tests/SnapshotTests/ContentViewSnapshotTests.swift
+    """
+
+    let localPath: StaticString = #filePath
+    var isCIEnv: Bool {
+        ProcessInfo.processInfo.environment["CI_XCODE_CLOUD"] == "TRUE"
+    }
+
+    func environmentAppropriatePath() -> StaticString {
+        if isCIEnv {
+            return ciPath
+        } else {
+            return localPath
+        }
+    }
+
     private var phoneTraits: UITraitCollection {
         UITraitCollection(displayScale: 2)
     }
@@ -25,7 +44,8 @@ struct ContentViewSnapshotTests {
 
         assertSnapshot(
             of: view,
-            as: .image(layout: .device(config: .iPhone13), traits: phoneTraits)
+            as: .image(layout: .device(config: .iPhone13), traits: phoneTraits),
+            file: environmentAppropriatePath()
         )
     }
 
@@ -35,7 +55,8 @@ struct ContentViewSnapshotTests {
 
         assertSnapshot(
             of: view,
-            as: .image(layout: .device(config: .iPhone13Pro), traits: phoneTraits)
+            as: .image(layout: .device(config: .iPhone13Pro), traits: phoneTraits),
+            file: environmentAppropriatePath()
         )
     }
 
@@ -45,7 +66,8 @@ struct ContentViewSnapshotTests {
 
         assertSnapshot(
             of: view,
-            as: .image(layout: .device(config: .iPhone13ProMax), traits: phoneTraits)
+            as: .image(layout: .device(config: .iPhone13ProMax), traits: phoneTraits),
+            file: environmentAppropriatePath()
         )
     }
 
@@ -55,7 +77,8 @@ struct ContentViewSnapshotTests {
 
         assertSnapshot(
             of: view,
-            as: .image(layout: .device(config: .iPadPro11), traits: iPadTraits)
+            as: .image(layout: .device(config: .iPadPro11), traits: iPadTraits),
+            file: environmentAppropriatePath()
         )
     }
 
@@ -65,7 +88,8 @@ struct ContentViewSnapshotTests {
 
         assertSnapshot(
             of: view,
-            as: .image(layout: .device(config: .iPadPro12_9), traits: iPadTraits)
+            as: .image(layout: .device(config: .iPadPro12_9), traits: iPadTraits),
+            file: environmentAppropriatePath()
         )
     }
 
@@ -75,7 +99,8 @@ struct ContentViewSnapshotTests {
 
         assertSnapshot(
             of: view,
-            as: .image(layout: .device(config: .iPadMini), traits: iPadTraits)
+            as: .image(layout: .device(config: .iPadMini), traits: iPadTraits),
+            file: environmentAppropriatePath()
         )
     }
 
@@ -87,7 +112,8 @@ struct ContentViewSnapshotTests {
 
         assertSnapshot(
             of: view,
-            as: .image(layout: .device(config: .iPhone13), traits: phoneTraits)
+            as: .image(layout: .device(config: .iPhone13), traits: phoneTraits),
+            file: environmentAppropriatePath()
         )
     }
 
@@ -97,7 +123,8 @@ struct ContentViewSnapshotTests {
 
         assertSnapshot(
             of: view,
-            as: .image(layout: .device(config: .iPadPro11), traits: iPadTraits)
+            as: .image(layout: .device(config: .iPadPro11), traits: iPadTraits),
+            file: environmentAppropriatePath()
         )
     }
 
@@ -107,7 +134,8 @@ struct ContentViewSnapshotTests {
 
         assertSnapshot(
             of: view,
-            as: .image(layout: .device(config: .iPhone13), traits: phoneTraits)
+            as: .image(layout: .device(config: .iPhone13), traits: phoneTraits),
+            file: environmentAppropriatePath()
         )
     }
 
@@ -117,7 +145,8 @@ struct ContentViewSnapshotTests {
 
         assertSnapshot(
             of: view,
-            as: .image(layout: .device(config: .iPhone13), traits: phoneTraits)
+            as: .image(layout: .device(config: .iPhone13), traits: phoneTraits),
+            file: environmentAppropriatePath()
         )
     }
 
@@ -130,7 +159,8 @@ struct ContentViewSnapshotTests {
 
         assertSnapshot(
             of: view,
-            as: .image(layout: .device(config: .iPhone13), traits: phoneTraits)
+            as: .image(layout: .device(config: .iPhone13), traits: phoneTraits),
+            file: environmentAppropriatePath()
         )
     }
 
@@ -141,7 +171,8 @@ struct ContentViewSnapshotTests {
 
         assertSnapshot(
             of: view,
-            as: .image(layout: .device(config: .iPadPro11), traits: iPadTraits)
+            as: .image(layout: .device(config: .iPadPro11), traits: iPadTraits),
+            file: environmentAppropriatePath()
         )
     }
 
@@ -152,7 +183,8 @@ struct ContentViewSnapshotTests {
 
         assertSnapshot(
             of: view,
-            as: .image(layout: .device(config: .iPhone13), traits: phoneTraits)
+            as: .image(layout: .device(config: .iPhone13), traits: phoneTraits),
+            file: environmentAppropriatePath()
         )
     }
 
@@ -163,7 +195,8 @@ struct ContentViewSnapshotTests {
 
         assertSnapshot(
             of: view,
-            as: .image(layout: .device(config: .iPhone13), traits: phoneTraits)
+            as: .image(layout: .device(config: .iPhone13), traits: phoneTraits),
+            file: environmentAppropriatePath()
         )
     }
 
@@ -175,7 +208,8 @@ struct ContentViewSnapshotTests {
 
         assertSnapshot(
             of: view,
-            as: .image(layout: .device(config: .iPhone13(.landscape)), traits: phoneTraits)
+            as: .image(layout: .device(config: .iPhone13(.landscape)), traits: phoneTraits),
+            file: environmentAppropriatePath()
         )
     }
 
@@ -185,7 +219,8 @@ struct ContentViewSnapshotTests {
 
         assertSnapshot(
             of: view,
-            as: .image(layout: .device(config: .iPadPro11(.landscape)), traits: iPadTraits)
+            as: .image(layout: .device(config: .iPadPro11(.landscape)), traits: iPadTraits),
+            file: environmentAppropriatePath()
         )
     }
 
@@ -196,7 +231,8 @@ struct ContentViewSnapshotTests {
 
         assertSnapshot(
             of: view,
-            as: .image(layout: .device(config: .iPhone13(.landscape)), traits: phoneTraits)
+            as: .image(layout: .device(config: .iPhone13(.landscape)), traits: phoneTraits),
+            file: environmentAppropriatePath()
         )
     }
 
@@ -209,7 +245,8 @@ struct ContentViewSnapshotTests {
 
         assertSnapshot(
             of: view,
-            as: .image(layout: .device(config: .iPhone13), traits: phoneTraits)
+            as: .image(layout: .device(config: .iPhone13), traits: phoneTraits),
+            file: environmentAppropriatePath()
         )
     }
 
@@ -220,7 +257,8 @@ struct ContentViewSnapshotTests {
 
         assertSnapshot(
             of: view,
-            as: .image(layout: .device(config: .iPhone13), traits: phoneTraits)
+            as: .image(layout: .device(config: .iPhone13), traits: phoneTraits),
+            file: environmentAppropriatePath()
         )
     }
 
@@ -232,7 +270,8 @@ struct ContentViewSnapshotTests {
 
         assertSnapshot(
             of: view,
-            as: .image(layout: .device(config: .iPhone13), traits: phoneTraits)
+            as: .image(layout: .device(config: .iPhone13), traits: phoneTraits),
+            file: environmentAppropriatePath()
         )
     }
 
@@ -244,7 +283,8 @@ struct ContentViewSnapshotTests {
 
         assertSnapshot(
             of: view,
-            as: .image(layout: .device(config: .iPadPro11), traits: iPadTraits)
+            as: .image(layout: .device(config: .iPadPro11), traits: iPadTraits),
+            file: environmentAppropriatePath()
         )
     }
 
