@@ -120,6 +120,9 @@ let project = Project(
                 .target(name: "SharedGameEngine"),
                 .external(name: "SnapshotTesting"),
                 .external(name: "Dependencies")
+            ],
+            environmentVariables: [
+                "CI_XCODE_CLOUD": "$(CI_XCODE_CLOUD)"
             ]
         )
     ],
