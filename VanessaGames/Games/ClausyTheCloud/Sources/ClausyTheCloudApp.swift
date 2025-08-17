@@ -1,4 +1,3 @@
-import SharedGameEngine
 import SwiftUI
 
 @main
