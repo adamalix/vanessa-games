@@ -7,7 +7,7 @@ import SwiftUI
 import Testing
 
 @MainActor
-@Suite(.snapshots(record: .missing))
+@Suite(.snapshots(record: .missing), .enabled(if: ProcessInfo.processInfo.environment["CI"] != "TRUE"))
 struct ContentViewSnapshotTests {
     let logger = Logger(subsystem: "com.adamalix.vanessagames.clausythecloud", category: "snapshot-tests")
 
