@@ -1,5 +1,4 @@
 import Dependencies
-import SharedAssets
 import SharedGameEngine
 import SwiftUI
 

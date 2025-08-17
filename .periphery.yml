@@ -1,0 +1,17 @@
+project: VanessaGames/VanessaGames.xcworkspace
+schemes:
+  - ClausyTheCloud
+  - SharedGameEngine
+  - SharedAssets
+relative_results: true
+report_exclude:
+  - '**/Derived/*.swift'
+
+# Retain public APIs for framework targets
+retain_public: true
+# Additional retention rules for dependency injection
+# retain_objc_accessible: false
+# retain_codable_properties: false
+
+# Comment-based exclusions can be added with:
+# // periphery:ignore

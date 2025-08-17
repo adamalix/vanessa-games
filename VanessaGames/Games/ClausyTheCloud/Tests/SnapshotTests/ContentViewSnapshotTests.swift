@@ -1,6 +1,5 @@
 @testable import ClausyTheCloud
 import Dependencies
-import OSLog
 @testable import SharedGameEngine
 import SnapshotTesting
 import SwiftUI
@@ -9,7 +8,6 @@ import Testing
 @MainActor
 @Suite(.snapshots(record: .missing), .enabled(if: ProcessInfo.processInfo.environment["CI"] != "TRUE"))
 struct ContentViewSnapshotTests {
-    let logger = Logger(subsystem: "com.adamalix.vanessagames.clausythecloud", category: "snapshot-tests")
 
     let ciPath: StaticString =
     """
