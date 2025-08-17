@@ -27,7 +27,9 @@ let project = Project(
             deploymentTargets: .iOS("18.0"),
             infoPlist: .default,
             sources: ["Shared/GameEngine/Sources/**"],
-            dependencies: []
+            dependencies: [
+                .external(name: "Dependencies")
+            ]
         ),
         .target(
             name: "SharedAssets",
@@ -86,7 +88,8 @@ let project = Project(
             scripts: commonScripts(),
             dependencies: [
                 .target(name: "SharedGameEngine"),
-                .target(name: "SharedAssets")
+                .target(name: "SharedAssets"),
+                .external(name: "Dependencies")
             ]
         ),
 
@@ -99,7 +102,10 @@ let project = Project(
             deploymentTargets: .iOS("18.0"),
             infoPlist: .default,
             sources: ["Shared/GameEngine/Tests/**"],
-            dependencies: [.target(name: "SharedGameEngine")]
+            dependencies: [
+                .target(name: "SharedGameEngine"),
+                .external(name: "Dependencies")
+            ]
         ),
         .target(
             name: "ClausyTheCloudTests",
@@ -111,7 +117,9 @@ let project = Project(
             sources: ["Games/ClausyTheCloud/Tests/**"],
             dependencies: [
                 .target(name: "ClausyTheCloud"),
-                .target(name: "SharedGameEngine")
+                .target(name: "SharedGameEngine"),
+                .external(name: "SnapshotTesting"),
+                .external(name: "Dependencies")
             ]
         )
     ],
@@ -120,7 +128,14 @@ let project = Project(
             name: "ClausyTheCloud",
             shared: true,
             buildAction: .buildAction(targets: ["ClausyTheCloud"]),
-            testAction: .targets(["ClausyTheCloudTests"]),
+            testAction: .targets(
+                ["ClausyTheCloudTests"],
+                arguments: .arguments(
+                    environmentVariables: [
+                        "CI_XCODE_CLOUD" : .environmentVariable(value: "$(CI_XCODE_CLOUD)", isEnabled: true)
+                    ]
+                )
+            ),
             runAction: .runAction(executable: "ClausyTheCloud")
         ),
         .scheme(
