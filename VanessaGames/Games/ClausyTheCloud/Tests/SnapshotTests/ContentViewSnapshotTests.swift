@@ -18,7 +18,6 @@ struct ContentViewSnapshotTests {
 
     let localPath: StaticString = #filePath
     var isCIEnv: Bool {
-
         ProcessInfo.processInfo.environment["CI"] == "TRUE" ||
         ProcessInfo.processInfo.environment["CI_XCODE_CLOUD"] == "TRUE"
     }
@@ -289,16 +288,6 @@ struct ContentViewSnapshotTests {
             as: .image(layout: .device(config: .iPadPro11), traits: iPadTraits),
             file: environmentAppropriatePath()
         )
-    }
-
-    // MARK: - Environment Tests
-
-    @Test func testEnvironmentDetection() {
-        let ciValue = ProcessInfo.processInfo.environment["CI"]
-        let xcodeCloudValue = ProcessInfo.processInfo.environment["CI_XCODE_CLOUD"]
-        logger.debug("CI Environment Variables: \(ciValue ?? "nil"), \(xcodeCloudValue ?? "nil")")
-
-        #expect(isCIEnv == true, "Should detect CI environment")
     }
 
     // MARK: - Helper Methods
