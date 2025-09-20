@@ -56,7 +56,7 @@ public struct Cloud {
     public let height: CGFloat
     public let speed: CGFloat
 
-    public init(xPos: CGFloat, yPos: CGFloat, width: CGFloat = 100, height: CGFloat = 60, speed: CGFloat = 5) {
+    public init(xPos: CGFloat, yPos: CGFloat, width: CGFloat = 100, height: CGFloat = 60, speed: CGFloat = 8) {
         self.xPos = xPos
         self.yPos = yPos
         self.width = width
