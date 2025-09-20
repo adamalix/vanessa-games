@@ -25,7 +25,7 @@ struct ClausyTheCloudTests {
         #expect(gameEngine.cloud.yPos == 100)
         #expect(gameEngine.cloud.width == 100)
         #expect(gameEngine.cloud.height == 60)
-        #expect(gameEngine.cloud.speed == 5)
+        #expect(gameEngine.cloud.speed == 8)
 
         // Test initial game state
         #expect(gameEngine.plants.count == 6)
@@ -49,7 +49,7 @@ struct ClausyTheCloudTests {
 
         // Test moving left
         gameEngine.moveCloudLeft()
-        #expect(gameEngine.cloud.xPos == initialX - 5) // speed = 5
+        #expect(gameEngine.cloud.xPos == initialX - 8) // speed = 8
 
         // Test moving right
         gameEngine.moveCloudRight()
@@ -224,7 +224,7 @@ struct ClausyTheCloudTests {
         let defaultCloud = Cloud(xPos: 100, yPos: 50)
         #expect(defaultCloud.width == 100)
         #expect(defaultCloud.height == 60)
-        #expect(defaultCloud.speed == 5)
+        #expect(defaultCloud.speed == 8)
     }
 
     @Test func plantGrowthLogic() {
