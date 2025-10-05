@@ -95,13 +95,13 @@ base: '/vanessa-games/<app-folder>/';
 
 - **Quick setup**: Run `./scripts/setup.sh` to initialize everything
 - Manual setup:
-  - Install tools: `mise install` (installs from `.mise.toml`)
+  - Install tools: `mise install` (installs from `mise.toml`)
   - Install dependencies: `pnpm install`
   - Setup pre-commit hooks: `pre-commit install`
 
 ### iOS Development Tools
 
-- **SwiftLint** 0.59.1 - Swift code linting
+- **SwiftLint** 0.61.0 - Swift code linting
 - **Tuist** 4.59.2 - Xcode project generation
 - **Periphery** 3.2.0 - unused code detection
 
