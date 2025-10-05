@@ -5,7 +5,7 @@ brew install zstd
 curl https://mise.run | sh
 export PATH="$HOME/.local/bin:$PATH"
 
-# Install tools from .mise.toml in repo root
+# Install tools from mise.toml in repo root
 mise install
 eval "$(mise activate bash --shims)"
 

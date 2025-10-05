@@ -217,4 +217,4 @@ pre-commit install
 - See `CLAUDE.md` for detailed development instructions
 - iOS development uses Swift Testing (not XCTest)
 - Web games support touch controls and keyboard input
-- All tools are version-managed via mise (see `.mise.toml`)
+- All tools are version-managed via mise (see `mise.toml`)
