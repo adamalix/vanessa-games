@@ -5,7 +5,7 @@ let project = Project(
     settings: .settings(
         base: SettingsDictionary()
             .automaticCodeSigning(devTeam: "8373S8M9H3")
-            .swiftVersion("6.1")
+            .swiftVersion("6.2")
             .merging([
                 "SWIFT_STRICT_CONCURRENCY": "complete",
                 "SWIFT_UPCOMING_FEATURE_CONCISE_MAGIC_FILE": "YES",
@@ -14,7 +14,8 @@ let project = Project(
                 "SWIFT_UPCOMING_FEATURE_BARE_SLASH_REGEX_LITERALS": "YES",
                 "SWIFT_UPCOMING_FEATURE_DEPRECATE_APPLICATION_MAIN": "YES",
                 "SWIFT_UPCOMING_FEATURE_ISOLATED_DEFAULT_VALUES": "YES",
-                "SWIFT_UPCOMING_FEATURE_GLOBAL_ACTOR_ISOLATED_TYPEALIAS": "YES"
+                "SWIFT_UPCOMING_FEATURE_GLOBAL_ACTOR_ISOLATED_TYPEALIAS": "YES",
+                "SWIFT_DEFAULT_ACTOR_ISOLATION": "MainActor",
             ])
     ),
     targets: [
@@ -24,19 +25,23 @@ let project = Project(
             destinations: .iOS,
             product: .framework,
             bundleId: "com.adamalix.vanessagames.sharedgameengine",
-            deploymentTargets: .iOS("18.0"),
+            deploymentTargets: .iOS("26.0"),
             infoPlist: .default,
             sources: ["Shared/GameEngine/Sources/**"],
             dependencies: [
                 .external(name: "Dependencies")
-            ]
+            ],
+            settings: .settings(
+                base: SettingsDictionary()
+                    .merging(["SWIFT_DEFAULT_ACTOR_ISOLATION": "nonisolated"])
+            )
         ),
         .target(
             name: "SharedAssets",
             destinations: .iOS,
             product: .framework,
             bundleId: "com.adamalix.vanessagames.sharedassets",
-            deploymentTargets: .iOS("18.0"),
+            deploymentTargets: .iOS("26.0"),
             infoPlist: .default,
             sources: ["Shared/Assets/Sources/**"],
             resources: ["Shared/Assets/Resources/**"],
@@ -49,7 +54,7 @@ let project = Project(
             destinations: .iOS,
             product: .app,
             bundleId: "com.adamalix.vanessagames.clausythecloud",
-            deploymentTargets: .iOS("18.0"),
+            deploymentTargets: .iOS("26.0"),
             infoPlist: .extendingDefault(
                 with: [
                     "CFBundleDisplayName": "Clausy the Cloud",
@@ -99,7 +104,7 @@ let project = Project(
             destinations: .iOS,
             product: .unitTests,
             bundleId: "com.adamalix.vanessagames.sharedgameenginetests",
-            deploymentTargets: .iOS("18.0"),
+            deploymentTargets: .iOS("26.0"),
             infoPlist: .default,
             sources: ["Shared/GameEngine/Tests/**"],
             dependencies: [
@@ -112,7 +117,7 @@ let project = Project(
             destinations: .iOS,
             product: .unitTests,
             bundleId: "com.adamalix.vanessagames.clausythecloudtests",
-            deploymentTargets: .iOS("18.0"),
+            deploymentTargets: .iOS("26.0"),
             infoPlist: .default,
             sources: ["Games/ClausyTheCloud/Tests/**"],
             dependencies: [
