@@ -1,0 +1,3 @@
+.github/workflows/* @adamalix
+**/package.json @adamalix
+**/pnpm-lock.yaml @adamalix
