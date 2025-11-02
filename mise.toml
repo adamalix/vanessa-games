@@ -1,8 +1,7 @@
 [tools]
 # iOS Development Tools
-swiftlint = "0.61.0"
-tuist = "4.81.1"
+swiftlint = "0.62.2"
+tuist = "4.97.2"
 periphery = "3.2.0"
-
 # Code Quality Tools
 pre-commit = "latest"
