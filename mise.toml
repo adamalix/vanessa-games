@@ -8,4 +8,4 @@ pre-commit = "4.3.0"
 
 [tasks.bump-tools]
 description = "Bump all tool versions to the latest"
-run = "mise upgrade --bump && pre-commit autoupdate"
+run = "mise upgrade --bump && uv run pre-commit autoupdate && pnpm update --recursive"
