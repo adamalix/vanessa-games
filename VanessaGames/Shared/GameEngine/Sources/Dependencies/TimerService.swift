@@ -9,16 +9,18 @@ public protocol GameTimer: Sendable {
 /// Service for creating and managing timers in games
 public struct TimerService: Sendable {
     /// Create a repeating timer with a given interval and action
-    public var repeatingTimer: @Sendable (
-        _ interval: TimeInterval,
-        _ action: @escaping @Sendable () async -> Void
-    ) async -> any GameTimer
-
-    public init(
-        repeatingTimer: @escaping @Sendable (
+    public var repeatingTimer:
+        @Sendable (
             _ interval: TimeInterval,
             _ action: @escaping @Sendable () async -> Void
-        ) async -> any GameTimer = { _, _ in NoOpTimer() }
+        ) async -> any GameTimer
+
+    public init(
+        repeatingTimer:
+            @escaping @Sendable (
+                _ interval: TimeInterval,
+                _ action: @escaping @Sendable () async -> Void
+            ) async -> any GameTimer = { _, _ in NoOpTimer() }
     ) {
         self.repeatingTimer = repeatingTimer
     }

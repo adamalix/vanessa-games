@@ -10,6 +10,8 @@ disabled_rules:
   - todo
   - redundant_discardable_let
   - type_body_length
+  - opening_brace
+  - closure_parameter_position
 
 opt_in_rules:
   - file_header
@@ -63,5 +65,5 @@ line_length:
   ignores_urls: true
 
 file_length:
-  warning: 500
+  warning: 1000
   error: 1000

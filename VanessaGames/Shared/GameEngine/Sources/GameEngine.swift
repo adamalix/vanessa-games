@@ -107,7 +107,7 @@ public final class ClausyGameEngine {
     public func startGame() {
         @Dependency(\.timerService) var timerService
         Task {
-            gameTimer = await timerService.repeatingTimer(1.0/60.0) { @MainActor in
+            gameTimer = await timerService.repeatingTimer(1.0 / 60.0) { @MainActor in
                 self.gameLoop()
             }
         }

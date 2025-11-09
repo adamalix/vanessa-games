@@ -15,7 +15,7 @@ let project = Project(
                 "SWIFT_UPCOMING_FEATURE_DEPRECATE_APPLICATION_MAIN": "YES",
                 "SWIFT_UPCOMING_FEATURE_ISOLATED_DEFAULT_VALUES": "YES",
                 "SWIFT_UPCOMING_FEATURE_GLOBAL_ACTOR_ISOLATED_TYPEALIAS": "YES",
-                "SWIFT_DEFAULT_ACTOR_ISOLATION": "MainActor",
+                "SWIFT_DEFAULT_ACTOR_ISOLATION": "MainActor"
             ])
     ),
     targets: [
@@ -137,7 +137,7 @@ let project = Project(
                 ["ClausyTheCloudTests"],
                 arguments: .arguments(
                     environmentVariables: [
-                        "CI_XCODE_CLOUD" : .environmentVariable(value: "$(CI_XCODE_CLOUD)", isEnabled: true)
+                        "CI_XCODE_CLOUD": .environmentVariable(value: "$(CI_XCODE_CLOUD)", isEnabled: true)
                     ]
                 )
             ),

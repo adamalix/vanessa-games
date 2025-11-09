@@ -13,12 +13,22 @@ repos:
     hooks:
       - id: prettier
         name: prettier
-        entry: pnpm exec prettier --write
+        entry: pnpm dlx prettier --write
         language: system
         files: \.(js|jsx|ts|tsx|json|css|scss|md|yaml|yml)$
-      - id: swiftlint
-        name: SwiftLint
-        entry: ./scripts/swiftlint.sh
+      - id: swift-format
+        name: Swift Format
+        entry: swift format
+        args: ['--configuration', '.swift-format', '--in-place']
         language: system
-        files: \.swift$
-        pass_filenames: false
+        types: [swift]
+      - id: swiftlint-fix
+        name: SwiftLint Fix
+        entry: swiftlint --fix --config VanessaGames/.swiftlint.yml
+        language: system
+        types: [swift]
+      - id: swiftlint-check
+        name: SwiftLint (Strict)
+        entry: swiftlint --strict --config VanessaGames/.swiftlint.yml
+        language: system
+        types: [swift]

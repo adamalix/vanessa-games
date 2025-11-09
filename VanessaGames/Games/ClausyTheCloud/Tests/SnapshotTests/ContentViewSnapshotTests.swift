@@ -10,14 +10,14 @@ import Testing
 struct ContentViewSnapshotTests {
 
     let ciPath: StaticString =
-    """
-    /Volumes/workspace/repository/ci_scripts/resources/ClausySnapshots/ContentViewSnapshotTests.swift
-    """
+        """
+        /Volumes/workspace/repository/ci_scripts/resources/ClausySnapshots/ContentViewSnapshotTests.swift
+        """
 
     let localPath: StaticString = #filePath
     var isCIEnv: Bool {
-        ProcessInfo.processInfo.environment["CI"] == "TRUE" ||
-        ProcessInfo.processInfo.environment["CI_XCODE_CLOUD"] == "TRUE"
+        ProcessInfo.processInfo.environment["CI"] == "TRUE"
+            || ProcessInfo.processInfo.environment["CI_XCODE_CLOUD"] == "TRUE"
     }
 
     func environmentAppropriatePath() -> StaticString {

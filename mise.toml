@@ -4,4 +4,8 @@ swiftlint = "0.62.2"
 tuist = "4.101.0"
 periphery = "3.2.0"
 # Code Quality Tools
-pre-commit = "latest"
+pre-commit = "4.3.0"
+
+[tasks.bump-tools]
+description = "Bump all tool versions to the latest"
+run = "mise upgrade --bump && pre-commit autoupdate"

@@ -208,11 +208,13 @@ struct ContentView: View {
 
         // Draw cloud smile
         var smilePath = Path()
-        smilePath.addArc(center: CGPoint(x: cloudCenter.x, y: cloudCenter.y + 5),
-                        radius: 10,
-                        startAngle: .degrees(0),
-                        endAngle: .degrees(180),
-                        clockwise: false)
+        smilePath.addArc(
+            center: CGPoint(x: cloudCenter.x, y: cloudCenter.y + 5),
+            radius: 10,
+            startAngle: .degrees(0),
+            endAngle: .degrees(180),
+            clockwise: false
+        )
         context.stroke(smilePath, with: .color(.black), lineWidth: 2)
     }
 
