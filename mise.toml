@@ -1,10 +1,9 @@
 [tools]
-# iOS Development Tools
 swiftlint = "0.62.2"
-tuist = "4.101.0"
+tuist = "4.109.1"
 periphery = "3.2.0"
-# Code Quality Tools
-pre-commit = "4.3.0"
+pre-commit = "4.5.0"
+node = "24.11.1"
 
 [tasks.bump-tools]
 description = "Bump all tool versions to the latest"
