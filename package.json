@@ -9,8 +9,9 @@
   "scripts": {
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
-    "lint:fix": "eslint . --ext .js,.jsx,.ts,.tsx --fix",
+    "typecheck": "pnpm -r --filter \"./apps/*\" exec tsc --noEmit --project tsconfig.json",
+    "lint": "pnpm run typecheck && pnpm exec eslint . --ext .js,.jsx,.ts,.tsx",
+    "lint:fix": "pnpm run typecheck && pnpm exec eslint . --ext .js,.jsx,.ts,.tsx --fix",
     "build": "pnpm -r run build"
   },
   "devDependencies": {
