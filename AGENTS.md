@@ -39,3 +39,15 @@
 
 - Always prefer pnpm-based workflows and update this guide when scripts, tools, or project layout change.
 - Use `gh` CLI for GitHub issue and PR operations to match repository automation.
+
+# Work Planning & Execution
+
+Use beads `bd` for new work planning and execution.
+
+# Apple documentation
+
+You can use `sosumi` to look up the latest Apple documentation.
+
+# Working with Apple Simulators
+
+Use `axe` to interact with Apple Simulators for testing and debugging iOS games.

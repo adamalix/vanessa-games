@@ -3,7 +3,7 @@ swiftlint = "0.62.2"
 tuist = "4.115.1"
 periphery = "3.3.0"
 pre-commit = "4.5.0"
-node = "24.11.1"
+node = "24.12.0"
 
 [tasks.bump-tools]
 description = "Bump all tool versions to the latest"
