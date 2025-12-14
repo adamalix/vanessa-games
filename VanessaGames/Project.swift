@@ -27,7 +27,7 @@ let project = Project(
             bundleId: "com.adamalix.vanessagames.sharedgameengine",
             deploymentTargets: .iOS("26.0"),
             infoPlist: .default,
-            sources: ["Shared/GameEngine/Sources/**"],
+            buildableFolders: ["Shared/GameEngine/Sources"],
             dependencies: [
                 .external(name: "Dependencies")
             ],
@@ -43,8 +43,7 @@ let project = Project(
             bundleId: "com.adamalix.vanessagames.sharedassets",
             deploymentTargets: .iOS("26.0"),
             infoPlist: .default,
-            sources: ["Shared/Assets/Sources/**"],
-            resources: ["Shared/Assets/Resources/**"],
+            buildableFolders: ["Shared/Assets/Sources", "Shared/Assets/Resources"],
             dependencies: []
         ),
 
@@ -88,8 +87,7 @@ let project = Project(
                     ]
                 ]
             ),
-            sources: ["Games/ClausyTheCloud/Sources/**"],
-            resources: ["Games/ClausyTheCloud/Resources/**"],
+            buildableFolders: ["Games/ClausyTheCloud/Sources", "Games/ClausyTheCloud/Resources"],
             scripts: commonScripts(),
             dependencies: [
                 .target(name: "SharedGameEngine"),
@@ -106,7 +104,7 @@ let project = Project(
             bundleId: "com.adamalix.vanessagames.sharedgameenginetests",
             deploymentTargets: .iOS("26.0"),
             infoPlist: .default,
-            sources: ["Shared/GameEngine/Tests/**"],
+            buildableFolders: ["Shared/GameEngine/Tests"],
             dependencies: [
                 .target(name: "SharedGameEngine"),
                 .external(name: "Dependencies")
@@ -119,7 +117,7 @@ let project = Project(
             bundleId: "com.adamalix.vanessagames.clausythecloudtests",
             deploymentTargets: .iOS("26.0"),
             infoPlist: .default,
-            sources: ["Games/ClausyTheCloud/Tests/**"],
+            buildableFolders: ["Games/ClausyTheCloud/Tests"],
             dependencies: [
                 .target(name: "ClausyTheCloud"),
                 .target(name: "SharedGameEngine"),

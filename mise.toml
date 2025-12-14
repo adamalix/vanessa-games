@@ -1,7 +1,7 @@
 [tools]
 swiftlint = "0.62.2"
-tuist = "4.109.1"
-periphery = "3.2.0"
+tuist = "4.115.1"
+periphery = "3.3.0"
 pre-commit = "4.5.0"
 node = "24.11.1"
 

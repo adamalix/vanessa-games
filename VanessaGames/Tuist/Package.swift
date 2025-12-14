@@ -8,7 +8,17 @@ let packageSettings = PackageSettings(
     // Customize the product types for specific package product
     // Default is .staticFramework
     // productTypes: ["Alamofire": .framework,]
-    productTypes: [:]
+    productTypes: [
+        // Point-Free packages default to static products, and Tuist warns when those products are linked
+        // from multiple targets (e.g. app + framework + tests). Use dynamic frameworks to avoid duplicates.
+        "Clocks": .framework,
+        "CombineSchedulers": .framework,
+        "ConcurrencyExtras": .framework,
+        "Dependencies": .framework,
+        "IssueReporting": .framework,
+        "IssueReportingPackageSupport": .framework,
+        "XCTestDynamicOverlay": .framework
+    ]
 )
 #endif
 
