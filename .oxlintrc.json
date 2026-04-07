@@ -1,0 +1,31 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": ["eslint", "typescript", "unicorn", "oxc", "react"],
+  "options": {
+    "typeAware": true,
+    "typeCheck": true
+  },
+  "categories": {
+    "correctness": "error",
+    "suspicious": "error"
+  },
+  "rules": {
+    "react/exhaustive-deps": "off",
+    "react/react-in-jsx-scope": "off"
+  },
+  "ignorePatterns": [
+    "node_modules",
+    "**/node_modules",
+    ".pnpm-store",
+    "**/.pnpm-store",
+    "dist",
+    "**/dist",
+    "build",
+    "**/build",
+    "coverage",
+    ".DS_Store",
+    ".vscode",
+    "*.log",
+    "pnpm-lock.yaml"
+  ]
+}

@@ -86,7 +86,7 @@ This is a **hybrid monorepo** supporting both web and iOS apps:
 When deploying to GitHub Pages, set the `base` option in `vite.config.ts`:
 
 ```typescript
-base: '/vanessa-games/<app-folder>/';
+base: "/vanessa-games/<app-folder>/";
 ```
 
 ## Tool Management
@@ -356,10 +356,9 @@ See `AGENTS_TESTING.md` for detailed implementation examples and the complete te
 
 ### Web Projects
 
-- Uses flat config in `eslint.config.js` (ESLint 9+)
-- Ignores patterns defined in the `ignores` property
-- `.eslintignore` file is not supported
-- Includes React, TypeScript, and Prettier integration
+- Uses `.oxlintrc.json` for Oxlint configuration
+- Ignores patterns defined in the `ignorePatterns` property
+- Uses Oxc tooling for linting and formatting
 
 ### iOS Projects
 

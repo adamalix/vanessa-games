@@ -11,15 +11,15 @@ repos:
       - id: check-json
   - repo: local
     hooks:
-      - id: prettier
-        name: prettier
-        entry: pnpm dlx prettier --write
+      - id: oxfmt
+        name: oxfmt
+        entry: pnpm exec oxfmt --write
         language: system
         files: \.(js|jsx|ts|tsx|json|css|scss|md|yaml|yml)$
       - id: swift-format
         name: Swift Format
         entry: swift format
-        args: ['--configuration', '.swift-format', '--in-place']
+        args: ["--configuration", ".swift-format", "--in-place"]
         language: system
         types: [swift]
       - id: swiftlint-fix
