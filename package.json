@@ -8,7 +8,7 @@
   "type": "module",
   "scripts": {
     "format": "pnpm exec oxfmt --write .",
-    "format:check": "pnpm exec oxfmt --list-different .",
+    "format:check": "pnpm exec oxfmt --check .",
     "typecheck": "pnpm exec oxlint .",
     "lint": "pnpm exec oxlint .",
     "lint:fix": "pnpm exec oxlint . --fix",
