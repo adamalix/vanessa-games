@@ -6,6 +6,11 @@ on:
       - main
     paths:
       - 'apps/**'
+      - '.github/workflows/lint.yml'
+      - '.oxfmtrc.json'
+      - '.oxlintrc.json'
+      - 'package.json'
+      - 'pnpm-lock.yaml'
 
 jobs:
   checks:
@@ -35,5 +40,5 @@ jobs:
       - name: Check code formatting
         run: pnpm format:check
 
-      - name: Run ESLint
+      - name: Run Oxlint
         run: pnpm lint

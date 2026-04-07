@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 type Plant = {
   x: number;
@@ -21,6 +21,20 @@ type Cloud = {
   height: number;
   speed: number;
 };
+
+const rainbowColors = [
+  '#FF0000',
+  '#FF7F00',
+  '#FFFF00',
+  '#00FF00',
+  '#0000FF',
+  '#4B0082',
+  '#8B00FF',
+];
+
+function getRandomRainbowColor(): string {
+  return rainbowColors[Math.floor(Math.random() * rainbowColors.length)];
+}
 
 export default function App() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -87,19 +101,6 @@ export default function App() {
     }
   }
 
-  // Helper must be defined before plantsRef
-  function getRandomRainbowColor(): string {
-    const colors = [
-      '#FF0000',
-      '#FF7F00',
-      '#FFFF00',
-      '#00FF00',
-      '#0000FF',
-      '#4B0082',
-      '#8B00FF',
-    ];
-    return colors[Math.floor(Math.random() * colors.length)];
-  }
   // Persist plants across renders and effect runs
   const plantCount = 6;
   const plantWidth = 80;
@@ -116,7 +117,7 @@ export default function App() {
   const plants = plantsRef.current;
 
   // Use a ref for cloud position for animation, but keep setCloudX for UI updates
-  const cloudXRef = useRef<number>(null);
+  const cloudXRef = useRef<number | null>(null);
   // Sync cloudXRef with cloudX when it changes
   useEffect(() => {
     cloudXRef.current = cloudX;
@@ -236,15 +237,6 @@ export default function App() {
     }
 
     function drawRainbow(cloud: Cloud) {
-      const rainbowColors = [
-        '#FF0000',
-        '#FF7F00',
-        '#FFFF00',
-        '#00FF00',
-        '#0000FF',
-        '#4B0082',
-        '#8B00FF',
-      ];
       const centerX = canvas.width / 2;
       const centerY = cloud.y + 50;
       const radius = 200;
@@ -332,7 +324,6 @@ export default function App() {
       stopMovingRight();
       cancelAnimationFrame(requestId);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps -- plants is a ref, safe to omit
   }, []); // Only run once on mount
 
   // Overlay touch buttons

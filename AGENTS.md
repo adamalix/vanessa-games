@@ -5,7 +5,7 @@
 - `apps/` contains each web game as a standalone React + TypeScript workspace (e.g., `apps/clausy-the-cloud/src/`).
 - `VanessaGames/` holds the Tuist-driven Swift workspace; `Games/` stores individual game targets and `Shared/` provides reusable SwiftUI components.
 - `scripts/` houses automation such as `setup.sh`, `swiftlint.sh`, and deployment helpers.
-- Root config lives in `eslint.config.js`, `pnpm-workspace.yaml`, and `pnpm-lock.yaml`; treat these as source of truth for tooling versions.
+- Root config lives in `.oxlintrc.json`, `pnpm-workspace.yaml`, and `pnpm-lock.yaml`; treat these as source of truth for tooling versions.
 
 ## Build, Test, and Development Commands
 
@@ -13,11 +13,11 @@
 - Start a web game locally with `pnpm --filter clausy-the-cloud dev`.
 - Build every web app using `pnpm build`; target a single game with `pnpm --filter <game> build` (outputs to `apps/<game>/dist/`).
 - Generate the iOS workspace by `mise exec -- tuist generate --path VanessaGames`, then build with `mise exec -- tuist build --path VanessaGames`.
-- Use `pnpm lint`, `pnpm lint:fix`, `pnpm format`, and `pnpm format:check` to enforce JS/TS style.
+- Use `pnpm lint`, `pnpm lint:fix`, `pnpm format`, and `pnpm format:check` to enforce JS/TS style with Oxc tooling.
 
 ## Coding Style & Naming Conventions
 
-- TypeScript/React files use functional components, PascalCase for components, camelCase for variables, and 2-space indentation (enforced by Prettier).
+- TypeScript/React files use functional components, PascalCase for components, camelCase for variables, and 2-space indentation (enforced by Oxfmt).
 - Swift targets conform to SwiftLint rules in `VanessaGames/.swiftlint.yml`; keep Swift files under 200 lines and prefer struct-based SwiftUI views.
 - Keep assets alongside features (e.g., `apps/<game>/src/CloudCanvas.tsx` with `style.css`).
 - Prefer pnpm commands (`pnpm exec <tool>`) over npm/npx equivalents.
