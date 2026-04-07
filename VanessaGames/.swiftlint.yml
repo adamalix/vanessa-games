@@ -1,10 +1,10 @@
 included:
-  - './Games'
-  - './Shared'
+  - "./Games"
+  - "./Shared"
 
 excluded:
-  - './Tuist/.build'
-  - './Derived'
+  - "./Tuist/.build"
+  - "./Derived"
 
 disabled_rules:
   - todo
@@ -40,24 +40,24 @@ opt_in_rules:
 
 custom_rules:
   avoid_asyncimage:
-    name: 'Avoid AsyncImage'
+    name: "Avoid AsyncImage"
     regex: '\bAsyncImage((\()|.init)'
-    message: 'Use `KFImage` instead as it caches images on disk.'
+    message: "Use `KFImage` instead as it caches images on disk."
     severity: warning
   avoid_string_imageref:
-    name: 'Avoid referencing image assets via strings'
+    name: "Avoid referencing image assets via strings"
     regex: '\bImage\("'
-    message: 'Use the generated asset references instead of string names'
+    message: "Use the generated asset references instead of string names"
     severity: warning
   disable_print:
     included: ".*\\.swift"
-    name: 'print usage'
+    name: "print usage"
     regex: "((\\bprint)|(Swift\\.print))\\s*\\("
-    message: 'Prefer Logger over print'
+    message: "Prefer Logger over print"
     severity: warning
 
 file_header:
-  forbidden_string: 'TODO: Remove this comment'
+  forbidden_string: "TODO: Remove this comment"
 
 line_length:
   ignores_comments: true

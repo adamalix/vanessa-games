@@ -86,7 +86,7 @@ This is a **hybrid monorepo** supporting both web and iOS apps:
 When deploying to GitHub Pages, set the `base` option in `vite.config.ts`:
 
 ```typescript
-base: '/vanessa-games/<app-folder>/';
+base: "/vanessa-games/<app-folder>/";
 ```
 
 ## Tool Management

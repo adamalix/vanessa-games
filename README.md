@@ -149,7 +149,7 @@ base: '/vanessa-games/<app-folder>/',
 Example for Clausy the Cloud:
 
 ```typescript
-base: '/vanessa-games/clausy-the-cloud/';
+base: "/vanessa-games/clausy-the-cloud/";
 ```
 
 This ensures assets load correctly at `https://<user>.github.io/vanessa-games/<app-folder>/`.

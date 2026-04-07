@@ -5,12 +5,12 @@ on:
     branches:
       - main
     paths:
-      - 'apps/**'
-      - '.github/workflows/lint.yml'
-      - '.oxfmtrc.json'
-      - '.oxlintrc.json'
-      - 'package.json'
-      - 'pnpm-lock.yaml'
+      - "apps/**"
+      - ".github/workflows/lint.yml"
+      - ".oxfmtrc.json"
+      - ".oxlintrc.json"
+      - "package.json"
+      - "pnpm-lock.yaml"
 
 jobs:
   checks:
@@ -30,8 +30,8 @@ jobs:
       - name: Setup Node.js & cache pnpm deps
         uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # v6.3.0
         with:
-          node-version: 'lts/*'
-          cache: 'pnpm'
+          node-version: "lts/*"
+          cache: "pnpm"
           cache-dependency-path: pnpm-lock.yaml
 
       - name: Install dependencies

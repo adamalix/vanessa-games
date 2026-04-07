@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from "react";
 
 type Plant = {
   x: number;
@@ -22,15 +22,7 @@ type Cloud = {
   speed: number;
 };
 
-const rainbowColors = [
-  '#FF0000',
-  '#FF7F00',
-  '#FFFF00',
-  '#00FF00',
-  '#0000FF',
-  '#4B0082',
-  '#8B00FF',
-];
+const rainbowColors = ["#FF0000", "#FF7F00", "#FFFF00", "#00FF00", "#0000FF", "#4B0082", "#8B00FF"];
 
 function getRandomRainbowColor(): string {
   return rainbowColors[Math.floor(Math.random() * rainbowColors.length)];
@@ -49,10 +41,7 @@ export default function App() {
       const cloudWidth = 100;
       const speed = 10;
       const newX = (prev !== null ? prev : canvas.width / 2) - speed;
-      return Math.max(
-        cloudWidth / 2,
-        Math.min(canvas.width - cloudWidth / 2, newX)
-      );
+      return Math.max(cloudWidth / 2, Math.min(canvas.width - cloudWidth / 2, newX));
     });
   }
   function moveCloudRight() {
@@ -62,10 +51,7 @@ export default function App() {
       const cloudWidth = 100;
       const speed = 10;
       const newX = (prev !== null ? prev : canvas.width / 2) + speed;
-      return Math.max(
-        cloudWidth / 2,
-        Math.min(canvas.width - cloudWidth / 2, newX)
-      );
+      return Math.max(cloudWidth / 2, Math.min(canvas.width - cloudWidth / 2, newX));
     });
   }
 
@@ -112,7 +98,7 @@ export default function App() {
       height: 0,
       grown: false,
       petals: Array.from({ length: 5 }, () => getRandomRainbowColor()),
-    }))
+    })),
   );
   const plants = plantsRef.current;
 
@@ -125,7 +111,7 @@ export default function App() {
 
   useEffect(() => {
     const canvas = canvasRef.current!;
-    const ctx = canvas.getContext('2d')!;
+    const ctx = canvas.getContext("2d")!;
 
     let rainDrops: RainDrop[] = [];
     let gameWon = false;
@@ -146,20 +132,20 @@ export default function App() {
       ctx.arc(cloud.x, cloud.y, 30, Math.PI, 2 * Math.PI);
       ctx.arc(cloud.x - 30, cloud.y + 10, 30, Math.PI, 2 * Math.PI);
       ctx.arc(cloud.x + 30, cloud.y + 10, 30, Math.PI, 2 * Math.PI);
-      ctx.fillStyle = 'white';
+      ctx.fillStyle = "white";
       ctx.fill();
       ctx.closePath();
 
       ctx.beginPath();
       ctx.arc(cloud.x - 15, cloud.y + 5, 5, 0, 2 * Math.PI);
       ctx.arc(cloud.x + 15, cloud.y + 5, 5, 0, 2 * Math.PI);
-      ctx.fillStyle = 'black';
+      ctx.fillStyle = "black";
       ctx.fill();
       ctx.closePath();
 
       ctx.beginPath();
       ctx.arc(cloud.x, cloud.y + 15, 10, 0, Math.PI);
-      ctx.strokeStyle = 'black';
+      ctx.strokeStyle = "black";
       ctx.lineWidth = 2;
       ctx.stroke();
       ctx.closePath();
@@ -179,10 +165,7 @@ export default function App() {
     function update(cloud: Cloud) {
       if (gameWon) return;
       plants.forEach((plant) => {
-        if (
-          !plant.grown &&
-          Math.abs(cloud.x - (plant.x + plantWidth / 2)) < plantWidth / 2
-        ) {
+        if (!plant.grown && Math.abs(cloud.x - (plant.x + plantWidth / 2)) < plantWidth / 2) {
           plant.height += 1;
           if (plant.y - plant.height <= cloud.y + cloud.height / 2) {
             plant.height = plant.y - cloud.y - cloud.height / 2;
@@ -199,7 +182,7 @@ export default function App() {
         ctx.beginPath();
         ctx.moveTo(plant.x + plantWidth / 2, plant.y);
         ctx.lineTo(plant.x + plantWidth / 2, plant.y - plant.height);
-        ctx.strokeStyle = '#228B22';
+        ctx.strokeStyle = "#228B22";
         ctx.lineWidth = 4;
         ctx.stroke();
         ctx.closePath();
@@ -219,7 +202,7 @@ export default function App() {
           });
           ctx.beginPath();
           ctx.arc(centerX, centerY, 5, 0, 2 * Math.PI);
-          ctx.fillStyle = 'yellow';
+          ctx.fillStyle = "yellow";
           ctx.fill();
           ctx.closePath();
         }
@@ -227,7 +210,7 @@ export default function App() {
     }
 
     function drawRain() {
-      ctx.fillStyle = '#00BFFF';
+      ctx.fillStyle = "#00BFFF";
       rainDrops.forEach((drop) => {
         ctx.beginPath();
         ctx.arc(drop.x, drop.y, 3, 0, 2 * Math.PI);
@@ -253,9 +236,9 @@ export default function App() {
 
     function drawWinScreen(cloud: Cloud) {
       drawRainbow(cloud);
-      ctx.fillStyle = '#FFD700';
-      ctx.font = '48px Arial';
-      ctx.fillText('You Win!', canvas.width / 2 - 100, canvas.height / 2);
+      ctx.fillStyle = "#FFD700";
+      ctx.font = "48px Arial";
+      ctx.fillText("You Win!", canvas.width / 2 - 100, canvas.height / 2);
     }
 
     function draw(cloud: Cloud) {
@@ -273,15 +256,12 @@ export default function App() {
     function handleKeyDown(e: KeyboardEvent) {
       const cloud = getCloud();
       let newX = cloud.x;
-      if (e.code === 'ArrowLeft') {
+      if (e.code === "ArrowLeft") {
         newX -= cloud.speed;
-      } else if (e.code === 'ArrowRight') {
+      } else if (e.code === "ArrowRight") {
         newX += cloud.speed;
       }
-      newX = Math.max(
-        cloud.width / 2,
-        Math.min(canvas.width - cloud.width / 2, newX)
-      );
+      newX = Math.max(cloud.width / 2, Math.min(canvas.width - cloud.width / 2, newX));
       setCloudX(newX);
     }
 
@@ -302,11 +282,11 @@ export default function App() {
     }
 
     // Add touch controls
-    canvas.addEventListener('touchstart', handleTouchStart);
-    canvas.addEventListener('touchend', handleTouchEnd);
+    canvas.addEventListener("touchstart", handleTouchStart);
+    canvas.addEventListener("touchend", handleTouchEnd);
 
     let requestId: number;
-    window.addEventListener('keydown', handleKeyDown);
+    window.addEventListener("keydown", handleKeyDown);
     function gameLoop() {
       const cloud = getCloud();
       updateRain(cloud);
@@ -317,9 +297,9 @@ export default function App() {
     gameLoop();
 
     return () => {
-      window.removeEventListener('keydown', handleKeyDown);
-      canvas.removeEventListener('touchstart', handleTouchStart);
-      canvas.removeEventListener('touchend', handleTouchEnd);
+      window.removeEventListener("keydown", handleKeyDown);
+      canvas.removeEventListener("touchstart", handleTouchStart);
+      canvas.removeEventListener("touchend", handleTouchEnd);
       stopMovingLeft();
       stopMovingRight();
       cancelAnimationFrame(requestId);
@@ -329,21 +309,16 @@ export default function App() {
   // Overlay touch buttons
   return (
     <div id="game-container">
-      <canvas
-        ref={canvasRef}
-        width={600}
-        height={800}
-        style={{ width: '100%', height: '100%' }}
-      />
+      <canvas ref={canvasRef} width={600} height={800} style={{ width: "100%", height: "100%" }} />
       <button
         aria-label="Move Left"
         style={{
-          position: 'absolute',
+          position: "absolute",
           left: 10,
-          bottom: 'calc(30px + env(safe-area-inset-bottom, 0px))',
+          bottom: "calc(30px + env(safe-area-inset-bottom, 0px))",
           width: 60,
           height: 60,
-          borderRadius: '50%',
+          borderRadius: "50%",
           opacity: 0.5,
           fontSize: 32,
           zIndex: 2,
@@ -359,12 +334,12 @@ export default function App() {
       <button
         aria-label="Move Right"
         style={{
-          position: 'absolute',
+          position: "absolute",
           right: 10,
-          bottom: 'calc(30px + env(safe-area-inset-bottom, 0px))',
+          bottom: "calc(30px + env(safe-area-inset-bottom, 0px))",
           width: 60,
           height: 60,
-          borderRadius: '50%',
+          borderRadius: "50%",
           opacity: 0.5,
           fontSize: 32,
           zIndex: 2,
