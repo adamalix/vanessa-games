@@ -1,9 +1,9 @@
 [tools]
-swiftlint = "0.62.2"
+swiftlint = "0.63.2"
 tuist = "4.115.1"
-periphery = "3.3.0"
-pre-commit = "4.5.0"
-node = "24.12.0"
+periphery = "3.7.4"
+pre-commit = "4.6.0"
+node = "lts"
 
 [tasks.bump-tools]
 description = "Bump all tool versions to the latest"
